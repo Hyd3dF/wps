@@ -11,3 +11,4 @@ next-env.d.ts
 .vscode
 backend/
 .codex-pricing1000/
+tsconfig.tsbuildinfo
