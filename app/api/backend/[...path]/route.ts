@@ -44,24 +44,48 @@ function hasValidOrigin(request: NextRequest): boolean {
   return Boolean(origin && origin === expectedOrigin(request));
 }
 
-function cookieOptions(maxAge: number) {
+function requestIsSecure(request: NextRequest): boolean {
+  const forwardedProto = request.headers
+    .get("x-forwarded-proto")
+    ?.split(",")[0]
+    .trim()
+    .toLowerCase();
+  if (forwardedProto) return forwardedProto === "https";
+  return new URL(request.url).protocol === "https:";
+}
+
+function cookieOptions(request: NextRequest, maxAge: number) {
   return {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: requestIsSecure(request),
     sameSite: "strict" as const,
     path: "/",
     maxAge,
   };
 }
 
-function setAuthCookies(response: NextResponse, tokens: BackendTokenResponse): void {
-  response.cookies.set(ACCESS_COOKIE, tokens.accessToken, cookieOptions(15 * 60));
-  response.cookies.set(REFRESH_COOKIE, tokens.refreshToken, cookieOptions(7 * 24 * 60 * 60));
+function setAuthCookies(
+  request: NextRequest,
+  response: NextResponse,
+  tokens: BackendTokenResponse,
+): void {
+  response.cookies.set(ACCESS_COOKIE, tokens.accessToken, cookieOptions(request, 15 * 60));
+  response.cookies.set(
+    REFRESH_COOKIE,
+    tokens.refreshToken,
+    cookieOptions(request, 7 * 24 * 60 * 60),
+  );
 }
 
-function clearAuthCookies(response: NextResponse): void {
-  response.cookies.set(ACCESS_COOKIE, "", { ...cookieOptions(0), expires: new Date(0) });
-  response.cookies.set(REFRESH_COOKIE, "", { ...cookieOptions(0), expires: new Date(0) });
+function clearAuthCookies(request: NextRequest, response: NextResponse): void {
+  response.cookies.set(ACCESS_COOKIE, "", {
+    ...cookieOptions(request, 0),
+    expires: new Date(0),
+  });
+  response.cookies.set(REFRESH_COOKIE, "", {
+    ...cookieOptions(request, 0),
+    expires: new Date(0),
+  });
 }
 
 async function callBackend(request: NextRequest, path: string, accessToken?: string, overrideBody?: BodyInit): Promise<Response> {
@@ -117,7 +141,7 @@ async function proxy(request: NextRequest, context: { params: Promise<{ path: st
       const refreshToken = store.get(REFRESH_COOKIE)?.value;
       if (refreshToken) await callBackend(request, path, undefined, JSON.stringify({ refreshToken }));
       const response = new NextResponse(null, { status: 204 });
-      clearAuthCookies(response);
+      clearAuthCookies(request, response);
       return response;
     }
 
@@ -137,14 +161,14 @@ async function proxy(request: NextRequest, context: { params: Promise<{ path: st
     if ((path === "auth/login" || path === "auth/register") && backendResponse.ok && payload) {
       const auth = JSON.parse(new TextDecoder().decode(payload)) as BackendAuthResponse;
       const response = NextResponse.json({ user: toFrontendUser(auth.user) }, { status: backendResponse.status });
-      setAuthCookies(response, auth);
+      setAuthCookies(request, response, auth);
       return response;
     }
 
     if (path === "auth/me" && backendResponse.ok && payload) {
       const data = JSON.parse(new TextDecoder().decode(payload)) as { user: BackendUser };
       const response = NextResponse.json({ user: toFrontendUser(data.user) });
-      if (rotatedTokens) setAuthCookies(response, rotatedTokens);
+      if (rotatedTokens) setAuthCookies(request, response, rotatedTokens);
       return response;
     }
 
@@ -152,8 +176,8 @@ async function proxy(request: NextRequest, context: { params: Promise<{ path: st
       status: backendResponse.status,
       headers: { "Content-Type": contentType, "Cache-Control": "no-store" },
     });
-    if (rotatedTokens) setAuthCookies(response, rotatedTokens);
-    if (backendResponse.status === 401 && !rotatedTokens) clearAuthCookies(response);
+    if (rotatedTokens) setAuthCookies(request, response, rotatedTokens);
+    if (backendResponse.status === 401 && !rotatedTokens) clearAuthCookies(request, response);
     return response;
   } catch (error) {
     console.error("Backend proxy hatası", error instanceof Error ? error.message : error);
