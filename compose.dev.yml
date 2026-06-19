@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: konu
+      POSTGRES_PASSWORD: ${DEV_POSTGRES_PASSWORD:?DEV_POSTGRES_PASSWORD is required}
+      POSTGRES_DB: konu
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - konu-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U konu -d konu"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: ghcr.io/coollabsio/minio:RELEASE.2025-10-15T17-29-55Z
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${DEV_MINIO_ACCESS_KEY:?DEV_MINIO_ACCESS_KEY is required}
+      MINIO_ROOT_PASSWORD: ${DEV_MINIO_SECRET_KEY:?DEV_MINIO_SECRET_KEY is required}
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - konu-minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  konu-postgres-data:
+  konu-minio-data:
