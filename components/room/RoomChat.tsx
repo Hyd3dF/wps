@@ -134,9 +134,9 @@ export function RoomChat({
   };
 
   return (
-    <div className="flex h-[calc(100vh-9rem)] flex-col overflow-hidden rounded-card border border-border bg-bg-secondary lg:flex-row">
-      <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex items-center gap-3 border-b border-border px-4 py-3">
+    <div className="relative flex h-[calc(100dvh-9rem)] min-h-0 flex-col overflow-hidden rounded-card border border-border bg-bg-secondary lg:flex-row">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <div className="flex shrink-0 items-center gap-3 border-b border-border px-3 py-3 sm:px-4">
           <div className="flex h-9 w-9 items-center justify-center rounded-btn bg-accent/15 text-accent">
             <Icon name="hash" size={18} />
           </div>
@@ -173,7 +173,7 @@ export function RoomChat({
 
         <div
           ref={scrollRef}
-          className="flex-1 space-y-4 overflow-y-auto scrollbar-thin px-4 py-5"
+          className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain scroll-pb-4 scrollbar-thin px-3 py-4 sm:px-4 sm:py-5"
         >
           {messages.map((m, i) => {
             const prev = messages[i - 1];
@@ -190,15 +190,12 @@ export function RoomChat({
           )}
         </div>
 
-        {error && <p role="alert" className="border-t border-border px-3 py-2 text-xs text-danger">{error}</p>}
+        {error && <p role="alert" className="shrink-0 border-t border-border px-3 py-2 text-xs text-danger">{error}</p>}
         {!isMember ? (
-          <div className="border-t border-border p-3">
+          <div className="shrink-0 border-t border-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
             <button type="button" onClick={() => void join()} className="btn-primary w-full">Odaya Katıl</button>
           </div>
-        ) : <form onSubmit={send} className="flex items-center gap-2 border-t border-border p-3">
-          <button type="button" className="icon-btn" aria-label="Dosya ekle">
-            <Icon name="paperclip" size={18} />
-          </button>
+        ) : <form onSubmit={send} className="flex shrink-0 items-center gap-2 border-t border-border bg-bg-secondary p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <input
             ref={imageInputRef}
             type="file"
@@ -210,7 +207,7 @@ export function RoomChat({
               event.target.value = "";
             }}
           />
-          <button type="button" onClick={() => imageInputRef.current?.click()} className="icon-btn" aria-label="Resim ekle">
+          <button type="button" onClick={() => imageInputRef.current?.click()} className="icon-btn h-11 w-11 shrink-0 border border-border bg-bg-tertiary sm:h-9 sm:w-9" aria-label="Resim ekle">
             <Icon name="image" size={18} />
           </button>
           <input
@@ -218,9 +215,9 @@ export function RoomChat({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Mesaj yaz..."
-            className="input"
+            className="input min-w-0 py-2.5 sm:py-2"
           />
-          <button type="submit" disabled={!text.trim() || sending} className="btn-primary px-3">
+          <button type="submit" disabled={!text.trim() || sending} className="btn-primary h-11 w-11 shrink-0 px-0 sm:h-9 sm:w-auto sm:px-3">
             <Icon name="send" size={16} />
             <span className="sr-only">Gönder</span>
           </button>
