@@ -23,6 +23,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://oroya.xyz"),
   title: {
     default: "Oroya — Düşüncen tweet olmasın. Oroya'da açsın.",
     template: "%s · Oroya",

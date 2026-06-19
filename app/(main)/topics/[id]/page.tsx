@@ -18,7 +18,23 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const result = await backendGet<{ topic: BackendTopic }>(`topics/${encodeURIComponent(id)}`);
   const topic = result?.topic;
   if (!topic) return { title: "Konu bulunamadı" };
-  return { title: topic.title, description: topic.body.slice(0, 140) };
+  const url = `/topics/${topic.id}`;
+  const description = topic.body.slice(0, 160);
+  return {
+    title: topic.title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: topic.title,
+      description,
+      publishedTime: topic.createdAt,
+      modifiedTime: topic.updatedAt,
+      authors: [`/u/${topic.authorUsername}`],
+      images: topic.authorAvatarUrl ? [{ url: topic.authorAvatarUrl }] : undefined,
+    },
+  };
 }
 
 export default async function TopicDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -31,9 +47,36 @@ export default async function TopicDetailPage({ params }: { params: Promise<{ id
   const topic = toTopic(topicResult.topic);
   const comments = (commentResult?.comments ?? []).map(toComment);
   const author = topic.author;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "DiscussionForumPosting",
+    headline: topic.title,
+    articleBody: topic.body,
+    datePublished: topic.createdAt,
+    dateModified: topic.updatedAt,
+    url: `https://oroya.xyz/topics/${topic.id}`,
+    author: {
+      "@type": "Person",
+      name: author.displayName,
+      alternateName: `@${author.username}`,
+      url: `https://oroya.xyz/u/${author.username}`,
+      image: author.avatarUrl || undefined,
+    },
+    commentCount: topic.commentCount,
+    interactionStatistic: {
+      "@type": "InteractionCounter",
+      interactionType: "https://schema.org/LikeAction",
+      userInteractionCount: topic.upvotes,
+    },
+    keywords: topic.tags.join(", "),
+  };
 
   return (
     <div className="mx-auto max-w-3xl">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
       <Link
         href="/explore"
         className="mb-4 inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-text-primary"
