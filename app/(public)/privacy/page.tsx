@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <LegalPage
+      kind="privacy"
       title="Gizlilik Politikası"
       updatedAt="19 Haziran 2026"
       description="Bu Gizlilik Politikası, Oroya'nın hangi bilgileri topladığını, bu bilgileri nasıl kullandığını, kiminle paylaştığını ve nasıl koruduğunu açıklar."

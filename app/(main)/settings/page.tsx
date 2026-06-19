@@ -8,8 +8,11 @@ import { Tabs } from "@/components/ui/Tabs";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useApp } from "@/components/providers/AppProvider";
 import { cn } from "@/lib/utils";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export default function SettingsPage() {
+  const { locale } = useI18n();
   const { user, reloadUser } = useApp();
   const [saved, setSaved] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -110,6 +113,16 @@ export default function SettingsPage() {
         <Icon name="settings" size={22} className="text-accent" />
         Ayarlar
       </h1>
+
+      <div className="card mb-5 flex items-center justify-between gap-4">
+        <div>
+          <h2 className="font-display font-semibold text-text-primary">Dil</h2>
+          <p className="mt-1 text-sm text-text-secondary">
+            {locale === "tr" ? "Arayüz dilini seç." : "Choose the interface language."}
+          </p>
+        </div>
+        <LanguageSwitcher />
+      </div>
 
       <Tabs
         items={[

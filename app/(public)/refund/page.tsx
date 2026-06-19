@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function RefundPage() {
   return (
     <LegalPage
+      kind="refund"
       title="İade Politikası"
       updatedAt="19 Haziran 2026"
       description="Bu İade Politikası, Oroya ücretli aboneliklerinde iptal ve iade koşullarını, teknik sorunlar karşısında destek sürecini ve hangi durumlarda iade yapılabileceğini açıklar."

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/components/providers/AppProvider";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,7 +48,9 @@ export default function RootLayout({
       className={`${inter.variable} ${jakarta.variable} ${mono.variable}`}
     >
       <body className="font-sans antialiased">
-        <AppProvider>{children}</AppProvider>
+        <I18nProvider>
+          <AppProvider>{children}</AppProvider>
+        </I18nProvider>
       </body>
     </html>
   );

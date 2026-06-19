@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <LegalPage
+      kind="terms"
       title="Kullanım Şartları"
       updatedAt="19 Haziran 2026"
       description="Bu Kullanım Şartları, Oroya platformunu kullanırken uygulanacak kuralları ve koşulları belirler. Hesap oluşturarak veya hizmeti kullanarak bu şartları kabul etmiş sayılırsın."

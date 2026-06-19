@@ -7,8 +7,10 @@ import { Logo } from "@/components/ui/Logo";
 import { Icon } from "@/components/ui/Icon";
 import { useApp } from "@/components/providers/AppProvider";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export default function RegisterPage() {
+  const { locale } = useI18n();
   const router = useRouter();
   const { register } = useApp();
   const [displayName, setDisplayName] = useState("");
@@ -139,6 +141,7 @@ export default function RegisterPage() {
             className="mt-0.5 h-4 w-4 rounded border-border bg-bg-tertiary accent-accent"
           />
           <span>
+            {locale === "en" && "I accept the "}
             <Link
               href="/terms"
               target="_blank"
@@ -147,7 +150,8 @@ export default function RegisterPage() {
             >
               Kullanım Şartları
             </Link>
-            &rsquo;nı kabul ediyorum.
+            {locale === "tr" && <>&rsquo;nı kabul ediyorum.</>}
+            {locale === "en" && "."}
           </span>
         </label>
 
