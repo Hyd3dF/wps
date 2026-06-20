@@ -17,6 +17,7 @@ export interface BackendUser {
   followersCount?: number;
   followingCount?: number;
   isFollowing?: boolean;
+  lastActiveAt?: string | null;
 }
 
 export function toFrontendUser(user: BackendUser): User {
@@ -37,5 +38,6 @@ export function toFrontendUser(user: BackendUser): User {
     followingCount: user.followingCount ?? 0,
     joinedAt: user.createdAt,
     isFollowing: user.isFollowing,
+    lastActiveAt: user.lastActiveAt ?? null,
   };
 }

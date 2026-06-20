@@ -7,23 +7,26 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 import { ContributionGraph } from "@/components/user/ContributionGraph";
 import { Tabs } from "@/components/ui/Tabs";
 import { TopicCardList } from "@/components/topic/TopicCard";
-import { Markdown, stripMarkdown } from "@/components/ui/Markdown";
+import { stripMarkdown } from "@/components/ui/Markdown";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useApp } from "@/components/providers/AppProvider";
 import { useI18n } from "@/components/providers/I18nProvider";
-import { formatNumber, timeAgo, formatDate, cn } from "@/lib/utils";
-import type { User, Topic, UserComment } from "@/types";
+import { formatNumber, timeAgo, formatDate } from "@/lib/utils";
+import type { User, Topic, UserComment, UserActivity } from "@/types";
 import { toTopic } from "@/lib/backend-content";
 
 export function ProfileView({ user }: { user: User }) {
   const { t, locale } = useI18n();
   const { user: me } = useApp();
-  const [following, setFollowing] = useState(user.isFollowing || false);
   const isMe = me?.username === user.username;
 
-  useEffect(() => {
+  const [prevUsername, setPrevUsername] = useState(user.username);
+  const [following, setFollowing] = useState(user.isFollowing || false);
+
+  if (user.username !== prevUsername) {
+    setPrevUsername(user.username);
     setFollowing(user.isFollowing || false);
-  }, [user.isFollowing]);
+  }
 
   const handleFollowToggle = async () => {
     if (!me) return;
@@ -44,17 +47,35 @@ export function ProfileView({ user }: { user: User }) {
 
   const [userTopics, setUserTopics] = useState<Topic[]>([]);
   const [userComments, setUserComments] = useState<UserComment[]>([]);
+  const [userActivities, setUserActivities] = useState<UserActivity[]>([]);
   const [saved, setSaved] = useState<Topic[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isOnline, setIsOnline] = useState(false);
+
+  useEffect(() => {
+    if (!user.lastActiveAt) {
+      Promise.resolve().then(() => setIsOnline(false));
+      return;
+    }
+    const checkOnline = () => {
+      const diff = Date.now() - new Date(user.lastActiveAt!).getTime();
+      const online = diff < 5 * 60 * 1000;
+      Promise.resolve().then(() => setIsOnline(online));
+    };
+    checkOnline();
+    const interval = setInterval(checkOnline, 30000);
+    return () => clearInterval(interval);
+  }, [user.lastActiveAt]);
 
   useEffect(() => {
     let active = true;
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [topicsRes, commentsRes] = await Promise.all([
+        const [topicsRes, commentsRes, activitiesRes] = await Promise.all([
           fetch(`/api/backend/users/${encodeURIComponent(user.username)}/topics`).then((r) => r.json()),
           fetch(`/api/backend/users/${encodeURIComponent(user.username)}/comments`).then((r) => r.json()),
+          fetch(`/api/backend/users/${encodeURIComponent(user.username)}/activities`).then((r) => r.json()),
         ]);
         if (!active) return;
 
@@ -69,6 +90,7 @@ export function ProfileView({ user }: { user: User }) {
         if (active) {
           setUserTopics((topicsRes?.topics || []).map(toTopic));
           setUserComments(commentsRes?.comments || []);
+          setUserActivities(activitiesRes?.activities || []);
           if (isMe) {
             setSaved(savedTopics);
           }
@@ -91,55 +113,67 @@ export function ProfileView({ user }: { user: User }) {
         <div className="px-6 pb-6 pt-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="flex flex-wrap items-center gap-5">
-            <Avatar
-              user={user}
-              size={88}
-              className="rounded-full ring-4 ring-bg-secondary"
-            />
-            <div className="flex-1">
-              <h1 className="text-2xl font-display font-bold tracking-tight text-text-primary">
-                {user.displayName}
-              </h1>
-              <p className="text-sm text-text-secondary">@{user.username}</p>
+              <Avatar
+                user={user}
+                size={88}
+                className="rounded-full ring-4 ring-bg-secondary"
+              />
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <h1 className="text-2xl font-display font-bold tracking-tight text-text-primary">
+                    {user.displayName}
+                  </h1>
+                  {isOnline ? (
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" title={t("profile.online")}></span>
+                    </span>
+                  ) : user.lastActiveAt ? (
+                    <span className="text-xs text-text-secondary self-end mb-1">
+                      {t("profile.lastSeen", { time: timeAgo(user.lastActiveAt, locale) })}
+                    </span>
+                  ) : null}
+                </div>
+                <p className="text-sm text-text-secondary">@{user.username}</p>
+              </div>
+              <div className="flex gap-2">
+                {isMe ? (
+                  <Link href="/settings" className="btn-secondary">
+                    <Icon name="settings" size={16} />
+                    {t("profile.editProfile")}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleFollowToggle}
+                    className={following ? "btn-secondary" : "btn-primary"}
+                  >
+                    <Icon name={following ? "check" : "plus"} size={16} />
+                    {following ? t("profile.following") : t("profile.follow")}
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="flex gap-2">
-              {isMe ? (
-                <Link href="/settings" className="btn-secondary">
-                  <Icon name="settings" size={16} />
-                  {t("profile.editProfile")}
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleFollowToggle}
-                  className={following ? "btn-secondary" : "btn-primary"}
-                >
-                  <Icon name={following ? "check" : "plus"} size={16} />
-                  {following ? t("profile.following") : t("profile.follow")}
-                </button>
+
+            {user.bio && (
+              <p className="mt-4 text-sm leading-relaxed text-text-primary">{user.bio}</p>
+            )}
+
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-text-secondary">
+              {user.websiteUrl && (
+                <SocialLink href={user.websiteUrl} icon="link" label="Website" />
               )}
+              {user.githubUrl && (
+                <SocialLink href={user.githubUrl} icon="github" label="GitHub" />
+              )}
+              {user.twitterUrl && (
+                <SocialLink href={user.twitterUrl} icon="twitter" label="Twitter" />
+              )}
+              <span className="inline-flex items-center gap-1">
+                <Icon name="clock" size={15} />
+                {t("profile.joinedAt", { date: formatDate(user.joinedAt, locale) })}
+              </span>
             </div>
-          </div>
-
-          {user.bio && (
-            <p className="mt-4 text-sm leading-relaxed text-text-primary">{user.bio}</p>
-          )}
-
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-text-secondary">
-            {user.websiteUrl && (
-              <SocialLink href={user.websiteUrl} icon="link" label="Website" />
-            )}
-            {user.githubUrl && (
-              <SocialLink href={user.githubUrl} icon="github" label="GitHub" />
-            )}
-            {user.twitterUrl && (
-              <SocialLink href={user.twitterUrl} icon="twitter" label="Twitter" />
-            )}
-            <span className="inline-flex items-center gap-1">
-              <Icon name="clock" size={15} />
-              {t("profile.joinedAt", { date: formatDate(user.joinedAt, locale) })}
-            </span>
-          </div>
           </div>
 
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -201,6 +235,87 @@ export function ProfileView({ user }: { user: User }) {
                 </div>
               ) : (
                 <EmptyState icon="chat" title={t("profile.noComments")} />
+              ),
+            },
+            {
+              id: "activity",
+              label: t("profile.tabActivity"),
+              count: userActivities.length,
+              content: loading ? (
+                <div className="py-8 text-center text-text-secondary">{t("common.loading")}</div>
+              ) : userActivities.length > 0 ? (
+                <div className="relative border-l border-white/[0.08] ml-4 pl-6 space-y-6">
+                  {userActivities.map((act) => {
+                    let iconName: IconName = "chat";
+                    let actionText = "";
+                    let targetLink = "";
+
+                    switch (act.activityType) {
+                      case "login":
+                        iconName = "check";
+                        actionText = t("profile.activityLogin");
+                        break;
+                      case "logout":
+                        iconName = "logout";
+                        actionText = t("profile.activityLogout");
+                        break;
+                      case "topic_create":
+                        iconName = "plus";
+                        actionText = t("profile.activityTopicCreate");
+                        if (act.targetId) targetLink = `/topics/${act.targetId}`;
+                        break;
+                      case "comment_create":
+                        iconName = "reply";
+                        actionText = t("profile.activityCommentCreate");
+                        if (act.targetId) targetLink = `/topics/${act.targetId}`;
+                        break;
+                      case "vote":
+                        iconName = "arrow-up";
+                        actionText = t("profile.activityVote");
+                        if (act.targetId) targetLink = `/topics/${act.targetId}`;
+                        break;
+                      case "save":
+                        iconName = "bookmark";
+                        actionText = t("profile.activitySave");
+                        if (act.targetId) targetLink = `/topics/${act.targetId}`;
+                        break;
+                    }
+
+                    return (
+                      <div key={act.id} className="relative group">
+                        <div className="absolute -left-[30px] top-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full border border-white/[0.12] bg-[#0c0c0e] text-[#9999aa] group-hover:border-accent group-hover:text-accent transition-colors">
+                          <Icon name={iconName} size={10} />
+                        </div>
+                        
+                        <div className="flex flex-col gap-1">
+                          <div className="flex items-center gap-2 text-sm text-text-secondary">
+                            <span className="font-medium text-text-primary">{actionText}</span>
+                            <span>•</span>
+                            <time className="text-xs">{timeAgo(act.createdAt, locale)}</time>
+                          </div>
+                          
+                          {act.targetTitle && (
+                            <div className="mt-1">
+                              {targetLink ? (
+                                <Link 
+                                  href={targetLink}
+                                  className="text-sm font-medium text-accent hover:underline inline-flex items-center gap-1 group-hover:text-accent/90"
+                                >
+                                  {act.targetTitle}
+                                  <Icon name="link" size={12} className="opacity-60 animate-pulse" />
+                                </Link>
+                              ) : (
+                                <span className="text-sm text-text-primary">{act.targetTitle}</span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <EmptyState icon="clock" title={t("profile.noActivity")} />
               ),
             },
             ...(isMe

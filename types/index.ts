@@ -32,6 +32,7 @@ export interface User {
   followingCount: number;
   joinedAt: string;
   isFollowing?: boolean;
+  lastActiveAt?: string | null;
 }
 
 export interface Topic {
@@ -128,5 +129,14 @@ export interface AppNotification {
   link: string;
   isRead: boolean;
   actor: User | null;
+  createdAt: string;
+}
+
+export interface UserActivity {
+  id: string;
+  userId: string;
+  activityType: "login" | "logout" | "topic_create" | "comment_create" | "vote" | "save";
+  targetId: string | null;
+  targetTitle: string | null;
   createdAt: string;
 }

@@ -9,6 +9,8 @@ npm-debug.log*
 .env.dev
 next-env.d.ts
 .vscode
-/backend/
+backend/node_modules
+backend/dist
+backend/.env
 .codex-pricing1000/
 tsconfig.tsbuildinfo
