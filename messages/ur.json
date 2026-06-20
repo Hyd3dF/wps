@@ -1,0 +1,10 @@
+{
+  "locale": "ur",
+  "languageName": "اردو",
+  "common": { "send": "بھیجیں", "loading": "لوڈ ہو رہا ہے...", "save": "محفوظ کریں", "share": "شیئر کریں", "searching": "تلاش جاری...", "error": "ایک خرابی پیش آئی" },
+  "nav": { "home": "ہوم", "explore": "دریافت", "rooms": "کمرے", "newTopic": "نیا موضوع", "notifications": "اطلاعات", "saved": "محفوظ", "settings": "ترتیبات", "myProfile": "میری پروفائل", "signIn": "سائن ان", "signUp": "سائن اپ", "signOut": "سائن آؤٹ", "searchPlaceholder": "موضوعات، صارفین، کمروں کو تلاش کریں...", "backToHome": "ہوم پر واپس" },
+  "auth": { "loginTitle": "خوش آمدید", "loginSubtitle": "سائن ان کریں اور مباحثوں میں شامل ہوں۔", "email": "ای میل", "password": "پاس ورڈ", "signIn": "سائن ان", "signingIn": "سائن ان ہو رہا ہے...", "registerTitle": "اکاؤنٹ بنائیں", "registerSubtitle": "موضوعات شروع کریں، بحث کریں اور ساکھ بنائیں۔", "displayName": "ظاہری نام", "username": "صارف نام", "acceptTermsPrefix": "میں ", "termsLink": "استعمال کی شرائط", "acceptTermsSuffix": " قبول کرتا/کرتی ہوں۔", "createAccount": "اکاؤنٹ بنائیں", "creating": "بن رہا ہے..." },
+  "settings": { "title": "ترتیبات", "language": "زبان", "languageDesc": "انٹرفیس کی زبان منتخب کریں۔" },
+  "time": { "justNow": "ابھی", "minutes": "{{n}} منٹ", "hours": "{{n}} گھنٹے", "days": "{{n}} دن", "months": "{{n}} ماہ", "years": "{{n}} سال" },
+  "legal": { "updatedAt": "آخری تازہ کاری: {{date}}" }
+}

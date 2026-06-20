@@ -9,15 +9,17 @@ import { CategoryBadge, TagList, PinBadge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { CommentList, CommentComposer } from "@/components/topic/Comment";
 import { formatDate, formatNumber, timeAgo } from "@/lib/utils";
+import { getTranslator } from "@/lib/i18n";
 import type { Metadata } from "next";
 import { backendGet } from "@/lib/backend-server";
 import { toComment, toTopic, type BackendComment, type BackendTopic } from "@/lib/backend-content";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { t } = await getTranslator();
   const { id } = await params;
   const result = await backendGet<{ topic: BackendTopic }>(`topics/${encodeURIComponent(id)}`);
   const topic = result?.topic;
-  if (!topic) return { title: "Konu bulunamadı" };
+  if (!topic) return { title: t("topic.notFound") };
   const url = `/topics/${topic.id}`;
   const description = topic.body.slice(0, 160);
   return {
@@ -38,6 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function TopicDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { t, locale } = await getTranslator();
   const { id } = await params;
   const [topicResult, commentResult] = await Promise.all([
     backendGet<{ topic: BackendTopic }>(`topics/${encodeURIComponent(id)}`),
@@ -82,16 +85,16 @@ export default async function TopicDetailPage({ params }: { params: Promise<{ id
         className="mb-4 inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-text-primary"
       >
         <Icon name="chevron-right" size={16} className="rotate-180" />
-        Geri
+        {t("common.back")}
       </Link>
 
-      <article className="card">
+      <article className="card p-4 sm:p-5">
         <div className="mb-4 flex items-center gap-2 text-xs text-text-secondary">
           {topic.isPinned && <PinBadge />}
           <CategoryBadge category={topic.category} />
         </div>
 
-        <h1 className="text-3xl font-display font-extrabold leading-tight tracking-tight text-text-primary">
+        <h1 className="text-xl font-display font-semibold leading-snug tracking-tight text-text-primary sm:text-2xl">
           {topic.title}
         </h1>
 
@@ -106,18 +109,18 @@ export default async function TopicDetailPage({ params }: { params: Promise<{ id
                 {author.displayName}
               </p>
               <p className="text-xs text-text-secondary">
-                @{author.username} · {formatNumber(author.reputation)} itibar
+                @{author.username} · {formatNumber(author.reputation)} {t("common.reputation")}
               </p>
             </div>
           </Link>
           <span className="text-xs text-text-secondary">
-            <time dateTime={topic.createdAt} title={formatDate(topic.createdAt)}>
-              {timeAgo(topic.createdAt)} önce açıldı
+            <time dateTime={topic.createdAt} title={formatDate(topic.createdAt, locale)}>
+              {t("topic.postedAgo", { time: timeAgo(topic.createdAt, locale) })}
             </time>
           </span>
         </div>
 
-        <div className="mt-6 border-y border-border py-6">
+        <div className="mt-5 border-y border-border py-5">
           <Markdown>{topic.body}</Markdown>
         </div>
 
@@ -153,10 +156,10 @@ export default async function TopicDetailPage({ params }: { params: Promise<{ id
         </div>
       </article>
 
-      <section className="mt-8">
-        <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-bold tracking-tight text-text-primary">
-          <Icon name="chat" size={20} className="text-accent" />
-          Yorumlar
+      <section className="mt-6">
+        <h2 className="mb-3 flex items-center gap-2 font-display text-lg font-semibold tracking-tight text-text-primary">
+          <Icon name="chat" size={18} className="text-accent" />
+          {t("topic.commentsHeading")}
           <span className="text-sm font-normal text-text-secondary">
             ({formatNumber(topic.commentCount)})
           </span>
@@ -164,7 +167,7 @@ export default async function TopicDetailPage({ params }: { params: Promise<{ id
 
         <CommentComposer topicId={topic.id} />
 
-        <div className="mt-8">
+        <div className="mt-6">
           <CommentList comments={comments} />
         </div>
       </section>

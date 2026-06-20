@@ -1,0 +1,10 @@
+{
+  "locale": "da",
+  "languageName": "Dansk",
+  "common": { "send": "Send", "loading": "Indlæser...", "save": "Gem", "share": "Del", "searching": "Søger...", "error": "Der opstod en fejl" },
+  "nav": { "home": "Hjem", "explore": "Udforsk", "rooms": "Rum", "newTopic": "Nyt emne", "notifications": "Notifikationer", "saved": "Gemt", "settings": "Indstillinger", "myProfile": "Min profil", "signIn": "Log ind", "signUp": "Tilmeld", "signOut": "Log ud", "searchPlaceholder": "Søg emner, brugere, rum...", "backToHome": "Tilbage til forsiden" },
+  "auth": { "loginTitle": "Velkommen tilbage", "loginSubtitle": "Log ind og deltag i diskussionerne.", "email": "Email", "password": "Adgangskode", "signIn": "Log ind", "signingIn": "Logger ind...", "registerTitle": "Opret konto", "registerSubtitle": "Start emner, diskuter og opbyg omdømme.", "displayName": "Visningsnavn", "username": "Brugernavn", "acceptTermsPrefix": "Jeg accepterer ", "termsLink": "Brugsvilkårene", "acceptTermsSuffix": ".", "createAccount": "Opret konto", "creating": "Opretter..." },
+  "settings": { "title": "Indstillinger", "language": "Sprog", "languageDesc": "Vælg grænsefladens sprog." },
+  "time": { "justNow": "lige nu", "minutes": "{{n}} min", "hours": "{{n}} t", "days": "{{n}} d", "months": "{{n}} md", "years": "{{n}} år" },
+  "legal": { "updatedAt": "Sidst opdateret: {{date}}" }
+}

@@ -8,18 +8,20 @@ import { VoteBar } from "@/components/ui/VoteBar";
 import { Markdown, stripMarkdown } from "@/components/ui/Markdown";
 import { Icon } from "@/components/ui/Icon";
 import { timeAgo, cn } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 import type { Comment } from "@/types";
 
 const MAX_DEPTH = 3;
 
 export function CommentItem({ comment }: { comment: Comment }) {
+  const { t, locale } = useI18n();
   const [showReply, setShowReply] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
   const canNest = comment.depth < MAX_DEPTH - 1;
 
   return (
-    <div className={cn(comment.depth > 0 && "mt-4")}>
+    <div className={cn(comment.depth > 0 && "mt-3")}>
       <div className="flex gap-3">
         <Avatar user={comment.author} size={32} href={`/u/${comment.author.username}`} />
         <div className="min-w-0 flex-1">
@@ -31,12 +33,12 @@ export function CommentItem({ comment }: { comment: Comment }) {
               {comment.author.displayName}
             </Link>
             <span>·</span>
-            <time dateTime={comment.createdAt}>{timeAgo(comment.createdAt)}</time>
+            <time dateTime={comment.createdAt}>{timeAgo(comment.createdAt, locale)}</time>
             <button
               type="button"
               onClick={() => setCollapsed((c) => !c)}
               className="icon-btn h-6 w-6 text-text-secondary/70"
-              aria-label={collapsed ? "Genişlet" : "Daralt"}
+              aria-label={collapsed ? t("comment.expand") : t("comment.collapse")}
             >
               <Icon name={collapsed ? "chevron-right" : "chevron-down"} size={14} />
             </button>
@@ -44,7 +46,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
 
           {!collapsed && (
             <>
-              <div className="mt-1.5 text-sm">
+              <div className="mt-1.5 text-[15px] text-[#ededf1]">
                 <Markdown>{comment.body}</Markdown>
               </div>
 
@@ -65,7 +67,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
                     className="inline-flex items-center gap-1 text-xs text-text-secondary transition-colors hover:text-accent"
                   >
                     <Icon name="reply" size={14} />
-                    Yanıtla
+                    {t("comment.reply")}
                   </button>
                 )}
               </div>
@@ -75,14 +77,14 @@ export function CommentItem({ comment }: { comment: Comment }) {
                   <CommentComposer
                     topicId={comment.topicId}
                     parentId={comment.id}
-                    placeholder={`@${comment.author.username} yanıtın...`}
+                    placeholder={t("comment.replyPlaceholder", { name: comment.author.username })}
                     onCancel={() => setShowReply(false)}
                   />
                 </div>
               )}
 
               {comment.children.length > 0 && (
-                <div className="mt-4 border-l border-border pl-4">
+                <div className="mt-3 border-l border-border pl-3 sm:pl-4">
                   {comment.children.map((child) => (
                     <CommentItem key={child.id} comment={child} />
                   ))}
@@ -97,15 +99,16 @@ export function CommentItem({ comment }: { comment: Comment }) {
 }
 
 export function CommentList({ comments }: { comments: Comment[] }) {
+  const { t, locale } = useI18n();
   if (comments.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-text-secondary">
-        Henüz yorum yok. İlk yorumu sen yaz.
+        {t("comment.none")}
       </p>
     );
   }
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       {comments.map((c) => (
         <CommentItem key={c.id} comment={c} />
       ))}
@@ -116,7 +119,7 @@ export function CommentList({ comments }: { comments: Comment[] }) {
 export function CommentComposer({
   topicId,
   parentId,
-  placeholder = "Yorumunu yaz... (Markdown destekli)",
+  placeholder,
   onCancel,
   autoFocus,
 }: {
@@ -126,6 +129,7 @@ export function CommentComposer({
   onCancel?: () => void;
   autoFocus?: boolean;
 }) {
+  const { t, locale } = useI18n();
   const router = useRouter();
   const [body, setBody] = useState("");
   const [preview, setPreview] = useState(false);
@@ -144,13 +148,13 @@ export function CommentComposer({
         body: JSON.stringify({ body: body.trim(), ...(parentId ? { parentId } : {}) }),
       });
       const data = await response.json().catch(() => null) as { error?: { message?: string } } | null;
-      if (!response.ok) throw new Error(data?.error?.message || "Yorum gönderilemedi");
+      if (!response.ok) throw new Error(data?.error?.message || t("comment.sendError"));
       setBody("");
       setPreview(false);
       onCancel?.();
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Yorum gönderilemedi");
+      setError(err instanceof Error ? err.message : t("comment.sendError"));
     } finally {
       setSubmitting(false);
     }
@@ -167,7 +171,7 @@ export function CommentComposer({
             !preview ? "bg-bg-tertiary text-text-primary" : "text-text-secondary hover:text-text-primary",
           )}
         >
-          Yaz
+          {t("common.write")}
         </button>
         <button
           type="button"
@@ -177,7 +181,7 @@ export function CommentComposer({
             preview ? "bg-bg-tertiary text-text-primary" : "text-text-secondary hover:text-text-primary",
           )}
         >
-          Önizle
+          {t("common.preview")}
         </button>
       </div>
       {preview ? (
@@ -185,31 +189,31 @@ export function CommentComposer({
           {body.trim() ? (
             <Markdown>{body}</Markdown>
           ) : (
-            <span className="text-text-secondary">Önizleme boş</span>
+            <span className="text-text-secondary">{t("common.previewEmpty")}</span>
           )}
         </div>
       ) : (
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t("comment.composerPlaceholder")}
           autoFocus={autoFocus}
           className="textarea min-h-[96px]"
         />
       )}
       <div className="mt-2 flex items-center justify-between">
         <span className="text-xs text-text-secondary">
-          {stripMarkdown(body).length} karakter
+          {stripMarkdown(body).length} {t("common.characters")}
         </span>
         <div className="flex gap-2">
           {onCancel && (
             <button type="button" onClick={onCancel} className="btn-ghost">
-              İptal
+              {t("common.cancel")}
             </button>
           )}
           <button type="submit" disabled={!body.trim() || submitting} className="btn-primary">
             <Icon name="send" size={14} />
-            {submitting ? "Gönderiliyor..." : "Gönder"}
+            {submitting ? t("common.sending") : t("common.send")}
           </button>
         </div>
       </div>

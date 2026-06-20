@@ -1,0 +1,10 @@
+{
+  "locale": "el",
+  "languageName": "Ελληνικά",
+  "common": { "send": "Αποστολή", "loading": "Φόρτωση...", "save": "Αποθήκευση", "share": "Κοινοποίηση", "searching": "Αναζήτηση...", "error": "Παρουσιάστηκε σφάλμα" },
+  "nav": { "home": "Αρχική", "explore": "Εξερεύνηση", "rooms": "Δωμάτια", "newTopic": "Νέο θέμα", "notifications": "Ειδοποιήσεις", "saved": "Αποθηκευμένα", "settings": "Ρυθμίσεις", "myProfile": "Το προφίλ μου", "signIn": "Σύνδεση", "signUp": "Εγγραφή", "signOut": "Αποσύνδεση", "searchPlaceholder": "Αναζήτηση θεμάτων, χρηστών, δωματίων...", "backToHome": "Πίσω στην αρχική" },
+  "auth": { "loginTitle": "Καλώς ήρθες ξανά", "loginSubtitle": "Συνδέσου και μπες στις συζητήσεις.", "email": "Email", "password": "Κωδικός", "signIn": "Σύνδεση", "signingIn": "Σύνδεση...", "registerTitle": "Δημιουργία λογαριασμού", "registerSubtitle": "Άνοιξε θέματα, συζήτησε και χτίσε φήμη.", "displayName": "Εμφανιζόμενο όνομα", "username": "Όνομα χρήστη", "acceptTermsPrefix": "Αποδέχομαι τους ", "termsLink": "Όρους χρήσης", "acceptTermsSuffix": ".", "createAccount": "Δημιουργία λογαριασμού", "creating": "Δημιουργία..." },
+  "settings": { "title": "Ρυθμίσεις", "language": "Γλώσσα", "languageDesc": "Επίλεξε γλώσσα διεπαφής." },
+  "time": { "justNow": "τώρα", "minutes": "{{n}}λ", "hours": "{{n}}ώ", "days": "{{n}}η", "months": "{{n}}μ", "years": "{{n}}χ" },
+  "legal": { "updatedAt": "Τελευταία ενημέρωση: {{date}}" }
+}

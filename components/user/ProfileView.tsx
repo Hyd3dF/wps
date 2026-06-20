@@ -9,11 +9,13 @@ import { TopicCardList } from "@/components/topic/TopicCard";
 import { Markdown, stripMarkdown } from "@/components/ui/Markdown";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useApp } from "@/components/providers/AppProvider";
+import { useI18n } from "@/components/providers/I18nProvider";
 import { formatNumber, timeAgo, formatDate, cn } from "@/lib/utils";
 import type { User, Topic, UserComment } from "@/types";
 import { toTopic } from "@/lib/backend-content";
 
 export function ProfileView({ user }: { user: User }) {
+  const { t, locale } = useI18n();
   const { user: me } = useApp();
   const [following, setFollowing] = useState(user.isFollowing || false);
   const isMe = me?.username === user.username;
@@ -31,7 +33,7 @@ export function ProfileView({ user }: { user: User }) {
         method: isCurrentlyFollowing ? "DELETE" : "POST",
       });
       if (!response.ok) {
-        throw new Error("Takip işlemi başarısız");
+        throw new Error(t("profile.followError"));
       }
     } catch (err) {
       console.error(err);
@@ -71,7 +73,7 @@ export function ProfileView({ user }: { user: User }) {
           }
         }
       } catch (err) {
-        console.error("Profil verisi yüklenirken hata oluştu", err);
+        console.error(t("profile.loadError"), err);
       } finally {
         if (active) setLoading(false);
       }
@@ -80,7 +82,7 @@ export function ProfileView({ user }: { user: User }) {
     return () => {
       active = false;
     };
-  }, [user.username, isMe]);
+  }, [user.username, isMe, t]);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -103,7 +105,7 @@ export function ProfileView({ user }: { user: User }) {
               {isMe ? (
                 <Link href="/settings" className="btn-secondary">
                   <Icon name="settings" size={16} />
-                  Profili Düzenle
+                  {t("profile.editProfile")}
                 </Link>
               ) : (
                 <button
@@ -112,7 +114,7 @@ export function ProfileView({ user }: { user: User }) {
                   className={following ? "btn-secondary" : "btn-primary"}
                 >
                   <Icon name={following ? "check" : "plus"} size={16} />
-                  {following ? "Takip Ediliyor" : "Takip Et"}
+                  {following ? t("profile.following") : t("profile.follow")}
                 </button>
               )}
             </div>
@@ -134,15 +136,15 @@ export function ProfileView({ user }: { user: User }) {
             )}
             <span className="inline-flex items-center gap-1">
               <Icon name="clock" size={15} />
-              {formatDate(user.joinedAt)} tarihinde katıldı
+              {t("profile.joinedAt", { date: formatDate(user.joinedAt, locale) })}
             </span>
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <StatBox value={formatNumber(user.reputation)} label="İtibar" icon="star" />
-            <StatBox value={formatNumber(user.topicCount)} label="Konu" icon="chat" />
-            <StatBox value={formatNumber(user.followersCount)} label="Takipçi" icon="users" />
-            <StatBox value={formatNumber(user.followingCount)} label="Takip" icon="user" />
+            <StatBox value={formatNumber(user.reputation)} label={t("profile.statReputation")} icon="star" />
+            <StatBox value={formatNumber(user.topicCount)} label={t("profile.statTopics")} icon="chat" />
+            <StatBox value={formatNumber(user.followersCount)} label={t("profile.statFollowers")} icon="users" />
+            <StatBox value={formatNumber(user.followingCount)} label={t("profile.statFollowing")} icon="user" />
           </div>
         </div>
       </div>
@@ -152,22 +154,22 @@ export function ProfileView({ user }: { user: User }) {
           items={[
             {
               id: "topics",
-              label: "Konular",
+              label: t("profile.tabTopics"),
               count: userTopics.length,
               content: loading ? (
-                <div className="py-8 text-center text-text-secondary">Yükleniyor...</div>
+                <div className="py-8 text-center text-text-secondary">{t("common.loading")}</div>
               ) : userTopics.length > 0 ? (
                 <TopicCardList topics={userTopics} />
               ) : (
-                <EmptyState icon="chat" title="Henüz konu yok" description={`${user.displayName} henüz konu açmamış.`} />
+                <EmptyState icon="chat" title={t("profile.noTopics")} description={t("profile.noTopicsDesc", { name: user.displayName })} />
               ),
             },
             {
               id: "comments",
-              label: "Yorumlar",
+              label: t("profile.tabComments"),
               count: userComments.length,
               content: loading ? (
-                <div className="py-8 text-center text-text-secondary">Yükleniyor...</div>
+                <div className="py-8 text-center text-text-secondary">{t("common.loading")}</div>
               ) : userComments.length > 0 ? (
                 <div className="flex flex-col gap-3">
                   {userComments.map((c) => (
@@ -186,34 +188,34 @@ export function ProfileView({ user }: { user: User }) {
                           <Icon name="arrow-up" size={13} />
                           {formatNumber(c.upvotes)}
                         </span>
-                        <time>{timeAgo(c.createdAt)}</time>
+                        <time>{timeAgo(c.createdAt, locale)}</time>
                       </div>
                     </Link>
                   ))}
                 </div>
               ) : (
-                <EmptyState icon="chat" title="Henüz yorum yok" />
+                <EmptyState icon="chat" title={t("profile.noComments")} />
               ),
             },
             ...(isMe
               ? [
                   {
                     id: "saved",
-                    label: "Kaydedilenler",
+                    label: t("profile.tabSaved"),
                     count: saved.length,
                     content: loading ? (
-                      <div className="py-8 text-center text-text-secondary">Yükleniyor...</div>
+                      <div className="py-8 text-center text-text-secondary">{t("common.loading")}</div>
                     ) : saved.length > 0 ? (
                       <TopicCardList topics={saved} />
                     ) : (
                       <EmptyState
                         icon="bookmark"
-                        title="Kayıtlı konu yok"
-                        description="Beğendiğin konuları kaydet, burada bul."
+                        title={t("profile.noSaved")}
+                        description={t("profile.noSavedDesc")}
                         action={
                           <Link href="/explore" className="btn-primary">
                             <Icon name="explore" size={16} />
-                            Keşfet
+                            {t("common.explore")}
                           </Link>
                         }
                       />

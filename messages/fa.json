@@ -1,0 +1,10 @@
+{
+  "locale": "fa",
+  "languageName": "فارسی",
+  "common": { "send": "ارسال", "loading": "در حال بارگذاری...", "save": "ذخیره", "share": "اشتراک‌گذاری", "searching": "در حال جستجو...", "error": "خطایی رخ داد" },
+  "nav": { "home": "خانه", "explore": "کاوش", "rooms": "اتاق‌ها", "newTopic": "موضوع جدید", "notifications": "اعلان‌ها", "saved": "ذخیره‌شده", "settings": "تنظیمات", "myProfile": "نمایه من", "signIn": "ورود", "signUp": "ثبت‌نام", "signOut": "خروج", "searchPlaceholder": "جستجوی موضوع‌ها، کاربران، اتاق‌ها...", "backToHome": "بازگشت به خانه" },
+  "auth": { "loginTitle": "خوش آمدید", "loginSubtitle": "وارد شوید و به گفتگوها بپیوندید.", "email": "ایمیل", "password": "رمز عبور", "signIn": "ورود", "signingIn": "در حال ورود...", "registerTitle": "ایجاد حساب", "registerSubtitle": "موضوع بسازید، گفتگو کنید و اعتبار بسازید.", "displayName": "نام نمایشی", "username": "نام کاربری", "acceptTermsPrefix": "من ", "termsLink": "شرایط استفاده", "acceptTermsSuffix": " را می‌پذیرم.", "createAccount": "ایجاد حساب", "creating": "در حال ایجاد..." },
+  "settings": { "title": "تنظیمات", "language": "زبان", "languageDesc": "زبان رابط را انتخاب کنید." },
+  "time": { "justNow": "همین حالا", "minutes": "{{n}} د", "hours": "{{n}} س", "days": "{{n}} روز", "months": "{{n}} ماه", "years": "{{n}} سال" },
+  "legal": { "updatedAt": "آخرین به‌روزرسانی: {{date}}" }
+}

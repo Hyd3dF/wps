@@ -1,0 +1,10 @@
+{
+  "locale": "ja",
+  "languageName": "日本語",
+  "common": { "send": "送信", "loading": "読み込み中...", "save": "保存", "share": "共有", "searching": "検索中...", "error": "エラーが発生しました" },
+  "nav": { "home": "ホーム", "explore": "探索", "rooms": "ルーム", "newTopic": "新しいトピック", "notifications": "通知", "saved": "保存済み", "settings": "設定", "myProfile": "マイプロフィール", "signIn": "ログイン", "signUp": "登録", "signOut": "ログアウト", "searchPlaceholder": "トピック、ユーザー、ルームを検索...", "backToHome": "ホームへ戻る" },
+  "auth": { "loginTitle": "おかえりなさい", "loginSubtitle": "ログインして会話に参加しましょう。", "email": "メール", "password": "パスワード", "signIn": "ログイン", "signingIn": "ログイン中...", "registerTitle": "アカウント作成", "registerSubtitle": "トピックを作成し、議論し、評価を築きましょう。", "displayName": "表示名", "username": "ユーザー名", "acceptTermsPrefix": "", "termsLink": "利用規約", "acceptTermsSuffix": "に同意します。", "createAccount": "アカウント作成", "creating": "作成中..." },
+  "settings": { "title": "設定", "language": "言語", "languageDesc": "インターフェースの言語を選択します。" },
+  "time": { "justNow": "たった今", "minutes": "{{n}}分", "hours": "{{n}}時間", "days": "{{n}}日", "months": "{{n}}か月", "years": "{{n}}年" },
+  "legal": { "updatedAt": "最終更新: {{date}}" }
+}

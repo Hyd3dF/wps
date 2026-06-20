@@ -1,0 +1,10 @@
+{
+  "locale": "he",
+  "languageName": "עברית",
+  "common": { "send": "שליחה", "loading": "טוען...", "save": "שמירה", "share": "שיתוף", "searching": "מחפש...", "error": "אירעה שגיאה" },
+  "nav": { "home": "בית", "explore": "גילוי", "rooms": "חדרים", "newTopic": "נושא חדש", "notifications": "התראות", "saved": "שמורים", "settings": "הגדרות", "myProfile": "הפרופיל שלי", "signIn": "כניסה", "signUp": "הרשמה", "signOut": "יציאה", "searchPlaceholder": "חיפוש נושאים, משתמשים, חדרים...", "backToHome": "חזרה לבית" },
+  "auth": { "loginTitle": "ברוך שובך", "loginSubtitle": "היכנס והצטרף לדיונים.", "email": "אימייל", "password": "סיסמה", "signIn": "כניסה", "signingIn": "נכנס...", "registerTitle": "יצירת חשבון", "registerSubtitle": "פתח נושאים, דון ובנה מוניטין.", "displayName": "שם תצוגה", "username": "שם משתמש", "acceptTermsPrefix": "אני מקבל את ", "termsLink": "תנאי השימוש", "acceptTermsSuffix": ".", "createAccount": "יצירת חשבון", "creating": "יוצר..." },
+  "settings": { "title": "הגדרות", "language": "שפה", "languageDesc": "בחר את שפת הממשק." },
+  "time": { "justNow": "עכשיו", "minutes": "{{n}} דק׳", "hours": "{{n}} שע׳", "days": "{{n}} ימים", "months": "{{n}} חוד׳", "years": "{{n}} שנים" },
+  "legal": { "updatedAt": "עודכן לאחרונה: {{date}}" }
+}

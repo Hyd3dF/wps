@@ -1,0 +1,10 @@
+{
+  "locale": "sv",
+  "languageName": "Svenska",
+  "common": { "send": "Skicka", "loading": "Laddar...", "save": "Spara", "share": "Dela", "searching": "Söker...", "error": "Ett fel uppstod" },
+  "nav": { "home": "Hem", "explore": "Utforska", "rooms": "Rum", "newTopic": "Nytt ämne", "notifications": "Aviseringar", "saved": "Sparat", "settings": "Inställningar", "myProfile": "Min profil", "signIn": "Logga in", "signUp": "Registrera", "signOut": "Logga ut", "searchPlaceholder": "Sök ämnen, användare, rum...", "backToHome": "Tillbaka hem" },
+  "auth": { "loginTitle": "Välkommen tillbaka", "loginSubtitle": "Logga in och delta i diskussionerna.", "email": "E-post", "password": "Lösenord", "signIn": "Logga in", "signingIn": "Loggar in...", "registerTitle": "Skapa konto", "registerSubtitle": "Starta ämnen, diskutera och bygg rykte.", "displayName": "Visningsnamn", "username": "Användarnamn", "acceptTermsPrefix": "Jag accepterar ", "termsLink": "Användarvillkoren", "acceptTermsSuffix": ".", "createAccount": "Skapa konto", "creating": "Skapar..." },
+  "settings": { "title": "Inställningar", "language": "Språk", "languageDesc": "Välj gränssnittsspråk." },
+  "time": { "justNow": "nyss", "minutes": "{{n}} min", "hours": "{{n}} h", "days": "{{n}} d", "months": "{{n}} mån", "years": "{{n}} år" },
+  "legal": { "updatedAt": "Senast uppdaterad: {{date}}" }
+}

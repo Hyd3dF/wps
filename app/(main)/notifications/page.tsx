@@ -6,6 +6,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { EmptyState, PageHeader } from "@/components/ui/EmptyState";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { useApp } from "@/components/providers/AppProvider";
+import { useI18n } from "@/components/providers/I18nProvider";
 import { timeAgo, cn } from "@/lib/utils";
 import type { NotificationType } from "@/types";
 
@@ -18,6 +19,7 @@ const TYPE_META: Record<NotificationType, { icon: IconName; color: string }> = {
 };
 
 export default function NotificationsPage() {
+  const { t, locale } = useI18n();
   const { notifications, markAllRead, markRead } = useApp();
   const [filter, setFilter] = useState<"all" | "unread">("all");
 
@@ -27,24 +29,24 @@ export default function NotificationsPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <PageHeader
-        title="Bildirimler"
-        description={unread > 0 ? `${unread} okunmamış bildirimin var.` : "Hepsi okundu."}
+        title={t("notifications.title")}
+        description={unread > 0 ? t("notifications.unreadCount", { count: unread }) : t("notifications.allRead")}
         action={
           unread > 0 ? (
             <button type="button" onClick={markAllRead} className="btn-secondary">
               <Icon name="check" size={16} />
-              Tümünü okundu işaretle
+              {t("notifications.markAllRead")}
             </button>
           ) : undefined
         }
       />
 
       <div className="mb-4 flex gap-2">
-        <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label="Tümü" />
+        <FilterChip active={filter === "all"} onClick={() => setFilter("all")} label={t("notifications.filterAll")} />
         <FilterChip
           active={filter === "unread"}
           onClick={() => setFilter("unread")}
-          label="Okunmamış"
+          label={t("notifications.filterUnread")}
           count={unread}
         />
       </div>
@@ -80,7 +82,7 @@ export default function NotificationsPage() {
                   {n.body && (
                     <p className="mt-1 line-clamp-2 text-sm text-text-secondary">{n.body}</p>
                   )}
-                  <time className="mt-1 block text-xs text-text-secondary">{timeAgo(n.createdAt)}</time>
+                  <time className="mt-1 block text-xs text-text-secondary">{timeAgo(n.createdAt, locale)}</time>
                 </div>
               </Link>
             );
@@ -89,8 +91,8 @@ export default function NotificationsPage() {
       ) : (
         <EmptyState
           icon="bell"
-          title="Bildirim yok"
-          description={filter === "unread" ? "Okunmamış bildirimin yok." : "Henüz bildirim gelmemiş."}
+          title={t("notifications.empty")}
+          description={filter === "unread" ? t("notifications.emptyUnread") : t("notifications.emptyAll")}
         />
       )}
     </div>

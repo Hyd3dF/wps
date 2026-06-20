@@ -1,0 +1,10 @@
+{
+  "locale": "no",
+  "languageName": "Norsk",
+  "common": { "send": "Send", "loading": "Laster...", "save": "Lagre", "share": "Del", "searching": "Søker...", "error": "Det oppstod en feil" },
+  "nav": { "home": "Hjem", "explore": "Utforsk", "rooms": "Rom", "newTopic": "Nytt emne", "notifications": "Varsler", "saved": "Lagret", "settings": "Innstillinger", "myProfile": "Min profil", "signIn": "Logg inn", "signUp": "Registrer", "signOut": "Logg ut", "searchPlaceholder": "Søk etter emner, brukere, rom...", "backToHome": "Tilbake hjem" },
+  "auth": { "loginTitle": "Velkommen tilbake", "loginSubtitle": "Logg inn og bli med i diskusjonene.", "email": "E-post", "password": "Passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "registerTitle": "Opprett konto", "registerSubtitle": "Start emner, diskuter og bygg omdømme.", "displayName": "Visningsnavn", "username": "Brukernavn", "acceptTermsPrefix": "Jeg godtar ", "termsLink": "Bruksvilkårene", "acceptTermsSuffix": ".", "createAccount": "Opprett konto", "creating": "Oppretter..." },
+  "settings": { "title": "Innstillinger", "language": "Språk", "languageDesc": "Velg språk for grensesnittet." },
+  "time": { "justNow": "akkurat nå", "minutes": "{{n}} min", "hours": "{{n}} t", "days": "{{n}} d", "months": "{{n}} mnd", "years": "{{n}} år" },
+  "legal": { "updatedAt": "Sist oppdatert: {{date}}" }
+}

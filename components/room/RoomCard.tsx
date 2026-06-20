@@ -1,19 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import { Avatar } from "@/components/ui/Avatar";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { OnlineDot, PrivateBadge } from "@/components/ui/Badge";
 import { formatNumber } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 import type { Room } from "@/types";
 
 export function RoomCard({ room }: { room: Room }) {
+  const { t } = useI18n();
   return (
     <Link
       href={`/rooms/${room.slug}`}
-      className="card group flex flex-col gap-3 transition-colors hover:border-text-secondary/30"
+      className="group flex flex-col gap-2.5 border-b border-border bg-bg-secondary px-3.5 py-3.5 transition-colors first:rounded-t-card first:border-x first:border-t last:rounded-b-card last:border-x hover:bg-bg-tertiary/35"
     >
       <div className="flex items-start gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-btn bg-accent/15 text-accent">
-          <Icon name="hash" size={20} />
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-btn border border-accent/20 bg-accent/10 text-accent">
+          <Icon name="hash" size={17} />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
@@ -31,14 +35,14 @@ export function RoomCard({ room }: { room: Room }) {
       <div className="flex items-center gap-4 text-xs text-text-secondary">
         <span className="inline-flex items-center gap-1.5">
           <OnlineDot online={room.onlineCount > 0} />
-          {formatNumber(room.onlineCount)} çevrimiçi
+          {formatNumber(room.onlineCount)} {t("common.online").toLowerCase()}
         </span>
         <span className="inline-flex items-center gap-1">
           <Icon name="users" size={14} />
-          {formatNumber(room.memberCount)} üye
+          {formatNumber(room.memberCount)} {t("common.member")}
         </span>
         {room.isMember && (
-          <span className="badge bg-success/15 text-success">Üyesin</span>
+          <span className="badge bg-success/15 text-success">{t("common.youAreMember")}</span>
         )}
       </div>
     </Link>
@@ -47,7 +51,7 @@ export function RoomCard({ room }: { room: Room }) {
 
 export function RoomCardGrid({ rooms }: { rooms: Room[] }) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-3 sm:grid-cols-2">
       {rooms.map((r) => (
         <RoomCard key={r.id} room={r} />
       ))}

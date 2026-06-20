@@ -1,0 +1,10 @@
+{
+  "locale": "id",
+  "languageName": "Bahasa Indonesia",
+  "common": { "send": "Kirim", "loading": "Memuat...", "save": "Simpan", "share": "Bagikan", "searching": "Mencari...", "error": "Terjadi kesalahan" },
+  "nav": { "home": "Beranda", "explore": "Jelajahi", "rooms": "Ruang", "newTopic": "Topik baru", "notifications": "Notifikasi", "saved": "Tersimpan", "settings": "Pengaturan", "myProfile": "Profil saya", "signIn": "Masuk", "signUp": "Daftar", "signOut": "Keluar", "searchPlaceholder": "Cari topik, pengguna, ruang...", "backToHome": "Kembali ke beranda" },
+  "auth": { "loginTitle": "Selamat datang kembali", "loginSubtitle": "Masuk dan ikuti diskusi.", "email": "Email", "password": "Kata sandi", "signIn": "Masuk", "signingIn": "Masuk...", "registerTitle": "Buat akun", "registerSubtitle": "Mulai topik, berdiskusi, dan bangun reputasi.", "displayName": "Nama tampilan", "username": "Nama pengguna", "acceptTermsPrefix": "Saya menerima ", "termsLink": "Ketentuan Penggunaan", "acceptTermsSuffix": ".", "createAccount": "Buat akun", "creating": "Membuat..." },
+  "settings": { "title": "Pengaturan", "language": "Bahasa", "languageDesc": "Pilih bahasa antarmuka." },
+  "time": { "justNow": "baru saja", "minutes": "{{n}} mnt", "hours": "{{n}} jam", "days": "{{n}} hr", "months": "{{n}} bln", "years": "{{n}} th" },
+  "legal": { "updatedAt": "Terakhir diperbarui: {{date}}" }
+}

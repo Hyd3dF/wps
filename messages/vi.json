@@ -1,0 +1,10 @@
+{
+  "locale": "vi",
+  "languageName": "Tiếng Việt",
+  "common": { "send": "Gửi", "loading": "Đang tải...", "save": "Lưu", "share": "Chia sẻ", "searching": "Đang tìm...", "error": "Đã xảy ra lỗi" },
+  "nav": { "home": "Trang chủ", "explore": "Khám phá", "rooms": "Phòng", "newTopic": "Chủ đề mới", "notifications": "Thông báo", "saved": "Đã lưu", "settings": "Cài đặt", "myProfile": "Hồ sơ của tôi", "signIn": "Đăng nhập", "signUp": "Đăng ký", "signOut": "Đăng xuất", "searchPlaceholder": "Tìm chủ đề, người dùng, phòng...", "backToHome": "Về trang chủ" },
+  "auth": { "loginTitle": "Chào mừng trở lại", "loginSubtitle": "Đăng nhập và tham gia thảo luận.", "email": "Email", "password": "Mật khẩu", "signIn": "Đăng nhập", "signingIn": "Đang đăng nhập...", "registerTitle": "Tạo tài khoản", "registerSubtitle": "Tạo chủ đề, thảo luận và xây dựng uy tín.", "displayName": "Tên hiển thị", "username": "Tên người dùng", "acceptTermsPrefix": "Tôi chấp nhận ", "termsLink": "Điều khoản sử dụng", "acceptTermsSuffix": ".", "createAccount": "Tạo tài khoản", "creating": "Đang tạo..." },
+  "settings": { "title": "Cài đặt", "language": "Ngôn ngữ", "languageDesc": "Chọn ngôn ngữ giao diện." },
+  "time": { "justNow": "vừa xong", "minutes": "{{n}} phút", "hours": "{{n}} giờ", "days": "{{n}} ngày", "months": "{{n}} tháng", "years": "{{n}} năm" },
+  "legal": { "updatedAt": "Cập nhật lần cuối: {{date}}" }
+}

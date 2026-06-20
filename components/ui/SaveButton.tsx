@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export function SaveButton({
   saved,
@@ -17,6 +18,7 @@ export function SaveButton({
   size?: number;
   className?: string;
 }) {
+  const { t } = useI18n();
   const [isSaved, setIsSaved] = useState(saved);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export function SaveButton({
         const response = await fetch(`/api/backend/topics/${encodeURIComponent(resourceId)}/save`, {
           method: next ? "POST" : "DELETE",
         });
-        if (!response.ok) throw new Error("Kaydetme işlemi başarısız");
+        if (!response.ok) throw new Error(t("topic.saveError"));
       }
     } catch {
       setIsSaved(!next);
@@ -50,8 +52,8 @@ export function SaveButton({
         className,
       )}
       aria-pressed={isSaved}
-      aria-label={isSaved ? "Kaydı kaldır" : "Kaydet"}
-      title={isSaved ? "Kaydedildi" : "Kaydet"}
+      aria-label={isSaved ? t("topic.unsaveAria") : t("topic.saveAria")}
+      title={isSaved ? t("topic.savedTitle") : t("topic.saveAria")}
     >
       <Icon
         name={isSaved ? "bookmark-filled" : "bookmark"}

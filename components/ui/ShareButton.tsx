@@ -3,14 +3,16 @@
 import { useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 export function ShareButton({
   className,
-  label = "Paylaş",
+  label,
 }: {
   className?: string;
   label?: string;
 }) {
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
   const share = async () => {
@@ -41,7 +43,7 @@ export function ShareButton({
       )}
     >
       <Icon name={copied ? "check" : "share"} size={15} />
-      {copied ? "Kopyalandı" : label}
+      {copied ? t("common.copied") : (label ?? t("common.share"))}
     </button>
   );
 }

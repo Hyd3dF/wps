@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
+import { translate, type Locale } from "@/lib/i18n-shared";
 
 export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
@@ -10,24 +11,29 @@ export function formatNumber(n: number): string {
   return (n / 1000000).toFixed(1) + "M";
 }
 
-export function timeAgo(iso: string): string {
+export function timeAgo(iso: string, locale: Locale = "tr"): string {
   const date = new Date(iso);
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (seconds < 60) return "az önce";
+  if (seconds < 60) return translate(locale, "time.justNow");
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} dk`;
+  if (minutes < 60) return translate(locale, "time.minutes", { n: minutes });
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} sa`;
+  if (hours < 24) return translate(locale, "time.hours", { n: hours });
   const days = Math.floor(hours / 24);
-  if (days < 30) return `${days} gün`;
+  if (days < 30) return translate(locale, "time.days", { n: days });
   const months = Math.floor(days / 30);
-  if (months < 12) return `${months} ay`;
+  if (months < 12) return translate(locale, "time.months", { n: months });
   const years = Math.floor(months / 12);
-  return `${years} yıl`;
+  return translate(locale, "time.years", { n: years });
 }
 
-export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("tr-TR", {
+export function formatDate(iso: string, locale: Locale = "tr"): string {
+  const dateLocaleMap: Record<Locale, string> = {
+    tr: "tr-TR",
+    en: "en-US",
+  };
+
+  return new Date(iso).toLocaleDateString(dateLocaleMap[locale] ?? "en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",

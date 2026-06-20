@@ -2,39 +2,28 @@
 
 import { useI18n } from "@/components/providers/I18nProvider";
 import { cn } from "@/lib/utils";
+import { localeOptions, type Locale } from "@/lib/i18n-shared";
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const { locale, setLocale } = useI18n();
+  const selected = localeOptions.find((option) => option.code === locale);
 
   return (
-    <div
-      className={cn("inline-flex rounded-btn border border-border bg-bg-tertiary p-1", className)}
-      role="group"
-      aria-label={locale === "tr" ? "Dil seçimi" : "Language selection"}
-      data-no-i18n
-    >
-      <button
-        type="button"
-        onClick={() => setLocale("tr")}
-        className={cn(
-          "rounded px-2.5 py-1 text-xs font-semibold transition-colors",
-          locale === "tr" ? "bg-accent text-white" : "text-text-secondary hover:text-text-primary",
-        )}
-        aria-pressed={locale === "tr"}
+    <label className={cn("inline-flex items-center gap-2 rounded-btn border border-border bg-bg-tertiary px-3 py-2 text-xs font-semibold text-text-secondary", className)} data-no-i18n>
+      <span>{locale === "tr" ? "Dil" : "Language"}</span>
+      <select
+        value={locale}
+        onChange={(event) => setLocale(event.target.value as Locale)}
+        className="max-w-[11rem] rounded border border-border bg-bg-secondary px-2 py-1 text-text-primary outline-none transition-colors focus:border-accent"
+        aria-label={locale === "tr" ? "Dil seçimi" : "Language selection"}
       >
-        TR
-      </button>
-      <button
-        type="button"
-        onClick={() => setLocale("en")}
-        className={cn(
-          "rounded px-2.5 py-1 text-xs font-semibold transition-colors",
-          locale === "en" ? "bg-accent text-white" : "text-text-secondary hover:text-text-primary",
-        )}
-        aria-pressed={locale === "en"}
-      >
-        EN
-      </button>
-    </div>
+        {localeOptions.map((option) => (
+          <option key={option.code} value={option.code}>
+            {option.nativeName} ({option.code.toUpperCase()})
+          </option>
+        ))}
+      </select>
+      <span className="hidden text-text-tertiary sm:inline">{selected?.label}</span>
+    </label>
   );
 }

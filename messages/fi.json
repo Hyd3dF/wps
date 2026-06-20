@@ -1,0 +1,10 @@
+{
+  "locale": "fi",
+  "languageName": "Suomi",
+  "common": { "send": "Lähetä", "loading": "Ladataan...", "save": "Tallenna", "share": "Jaa", "searching": "Haetaan...", "error": "Tapahtui virhe" },
+  "nav": { "home": "Etusivu", "explore": "Tutki", "rooms": "Huoneet", "newTopic": "Uusi aihe", "notifications": "Ilmoitukset", "saved": "Tallennetut", "settings": "Asetukset", "myProfile": "Profiilini", "signIn": "Kirjaudu", "signUp": "Rekisteröidy", "signOut": "Kirjaudu ulos", "searchPlaceholder": "Hae aiheita, käyttäjiä, huoneita...", "backToHome": "Takaisin etusivulle" },
+  "auth": { "loginTitle": "Tervetuloa takaisin", "loginSubtitle": "Kirjaudu sisään ja osallistu keskusteluihin.", "email": "Sähköposti", "password": "Salasana", "signIn": "Kirjaudu", "signingIn": "Kirjaudutaan...", "registerTitle": "Luo tili", "registerSubtitle": "Aloita aiheita, keskustele ja rakenna mainetta.", "displayName": "Näyttönimi", "username": "Käyttäjänimi", "acceptTermsPrefix": "Hyväksyn ", "termsLink": "Käyttöehdot", "acceptTermsSuffix": ".", "createAccount": "Luo tili", "creating": "Luodaan..." },
+  "settings": { "title": "Asetukset", "language": "Kieli", "languageDesc": "Valitse käyttöliittymän kieli." },
+  "time": { "justNow": "juuri nyt", "minutes": "{{n}} min", "hours": "{{n}} t", "days": "{{n}} pv", "months": "{{n}} kk", "years": "{{n}} v" },
+  "legal": { "updatedAt": "Viimeksi päivitetty: {{date}}" }
+}

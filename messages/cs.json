@@ -1,0 +1,10 @@
+{
+  "locale": "cs",
+  "languageName": "Čeština",
+  "common": { "send": "Odeslat", "loading": "Načítání...", "save": "Uložit", "share": "Sdílet", "searching": "Hledání...", "error": "Došlo k chybě" },
+  "nav": { "home": "Domů", "explore": "Prozkoumat", "rooms": "Místnosti", "newTopic": "Nové téma", "notifications": "Oznámení", "saved": "Uloženo", "settings": "Nastavení", "myProfile": "Můj profil", "signIn": "Přihlásit", "signUp": "Registrovat", "signOut": "Odhlásit", "searchPlaceholder": "Hledat témata, uživatele, místnosti...", "backToHome": "Zpět domů" },
+  "auth": { "loginTitle": "Vítejte zpět", "loginSubtitle": "Přihlaste se a zapojte se do diskusí.", "email": "Email", "password": "Heslo", "signIn": "Přihlásit", "signingIn": "Přihlašování...", "registerTitle": "Vytvořit účet", "registerSubtitle": "Zakládejte témata, diskutujte a budujte reputaci.", "displayName": "Zobrazované jméno", "username": "Uživatelské jméno", "acceptTermsPrefix": "Souhlasím s ", "termsLink": "Podmínkami použití", "acceptTermsSuffix": ".", "createAccount": "Vytvořit účet", "creating": "Vytváření..." },
+  "settings": { "title": "Nastavení", "language": "Jazyk", "languageDesc": "Vyberte jazyk rozhraní." },
+  "time": { "justNow": "právě teď", "minutes": "{{n}} min", "hours": "{{n}} h", "days": "{{n}} d", "months": "{{n}} měs.", "years": "{{n}} r" },
+  "legal": { "updatedAt": "Poslední aktualizace: {{date}}" }
+}

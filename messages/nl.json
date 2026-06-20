@@ -1,0 +1,10 @@
+{
+  "locale": "nl",
+  "languageName": "Nederlands",
+  "common": { "send": "Verzenden", "loading": "Laden...", "save": "Opslaan", "share": "Delen", "searching": "Zoeken...", "error": "Er is een fout opgetreden" },
+  "nav": { "home": "Home", "explore": "Ontdekken", "rooms": "Kamers", "newTopic": "Nieuw onderwerp", "notifications": "Meldingen", "saved": "Opgeslagen", "settings": "Instellingen", "myProfile": "Mijn profiel", "signIn": "Inloggen", "signUp": "Registreren", "signOut": "Uitloggen", "searchPlaceholder": "Zoek onderwerpen, gebruikers, kamers...", "backToHome": "Terug naar home" },
+  "auth": { "loginTitle": "Welkom terug", "loginSubtitle": "Log in en doe mee met de gesprekken.", "email": "E-mail", "password": "Wachtwoord", "signIn": "Inloggen", "signingIn": "Inloggen...", "registerTitle": "Account maken", "registerSubtitle": "Start onderwerpen, discussieer en bouw reputatie op.", "displayName": "Weergavenaam", "username": "Gebruikersnaam", "acceptTermsPrefix": "Ik accepteer de ", "termsLink": "Gebruiksvoorwaarden", "acceptTermsSuffix": ".", "createAccount": "Account maken", "creating": "Maken..." },
+  "settings": { "title": "Instellingen", "language": "Taal", "languageDesc": "Kies de interfacetaal." },
+  "time": { "justNow": "zojuist", "minutes": "{{n}} min", "hours": "{{n}} u", "days": "{{n}} d", "months": "{{n}} mnd", "years": "{{n}} j" },
+  "legal": { "updatedAt": "Laatst bijgewerkt: {{date}}" }
+}

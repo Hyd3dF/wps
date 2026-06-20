@@ -1,0 +1,10 @@
+{
+  "locale": "th",
+  "languageName": "ไทย",
+  "common": { "send": "ส่ง", "loading": "กำลังโหลด...", "save": "บันทึก", "share": "แชร์", "searching": "กำลังค้นหา...", "error": "เกิดข้อผิดพลาด" },
+  "nav": { "home": "หน้าแรก", "explore": "สำรวจ", "rooms": "ห้อง", "newTopic": "หัวข้อใหม่", "notifications": "การแจ้งเตือน", "saved": "บันทึกแล้ว", "settings": "การตั้งค่า", "myProfile": "โปรไฟล์ของฉัน", "signIn": "เข้าสู่ระบบ", "signUp": "สมัคร", "signOut": "ออกจากระบบ", "searchPlaceholder": "ค้นหาหัวข้อ ผู้ใช้ ห้อง...", "backToHome": "กลับหน้าแรก" },
+  "auth": { "loginTitle": "ยินดีต้อนรับกลับ", "loginSubtitle": "เข้าสู่ระบบและเข้าร่วมการสนทนา", "email": "อีเมล", "password": "รหัสผ่าน", "signIn": "เข้าสู่ระบบ", "signingIn": "กำลังเข้าสู่ระบบ...", "registerTitle": "สร้างบัญชี", "registerSubtitle": "เริ่มหัวข้อ สนทนา และสร้างชื่อเสียง", "displayName": "ชื่อที่แสดง", "username": "ชื่อผู้ใช้", "acceptTermsPrefix": "ฉันยอมรับ", "termsLink": "ข้อกำหนดการใช้งาน", "acceptTermsSuffix": ".", "createAccount": "สร้างบัญชี", "creating": "กำลังสร้าง..." },
+  "settings": { "title": "การตั้งค่า", "language": "ภาษา", "languageDesc": "เลือกภาษาของอินเทอร์เฟซ" },
+  "time": { "justNow": "เมื่อกี้", "minutes": "{{n}} นาที", "hours": "{{n}} ชม.", "days": "{{n}} วัน", "months": "{{n}} เดือน", "years": "{{n}} ปี" },
+  "legal": { "updatedAt": "อัปเดตล่าสุด: {{date}}" }
+}

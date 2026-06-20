@@ -6,7 +6,9 @@ import { OnlineDot } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { timeAgo, formatNumber, cn } from "@/lib/utils";
 import { useApp } from "@/components/providers/AppProvider";
+import { useI18n } from "@/components/providers/I18nProvider";
 import type { Room, RoomMessage, RoomMember } from "@/types";
+import type { Locale } from "@/lib/i18n-shared";
 import {
   toRoomMember,
   toRoomMessage,
@@ -24,6 +26,7 @@ export function RoomChat({
   initialMessages: RoomMessage[];
   members: RoomMember[];
 }) {
+  const { t, locale } = useI18n();
   const { user } = useApp();
   const [messages, setMessages] = useState(initialMessages);
   const [members, setMembers] = useState(initialMembers);
@@ -58,13 +61,13 @@ export function RoomChat({
   }, [room.slug]);
 
   useEffect(() => {
-    const initial = window.setTimeout(() => void loadRoom().catch(() => setError("Oda bilgileri alınamadı")), 0);
+    const initial = window.setTimeout(() => void loadRoom().catch(() => setError(t("room.loadError"))), 0);
     const timer = window.setInterval(() => void loadRoom().catch(() => undefined), 5_000);
     return () => {
       window.clearTimeout(initial);
       window.clearInterval(timer);
     };
-  }, [loadRoom]);
+  }, [loadRoom, t]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
@@ -90,11 +93,11 @@ export function RoomChat({
       const data = await response.json().catch(() => null) as
         | { message?: BackendRoomMessage; error?: { message?: string } }
         | null;
-      if (!response.ok || !data?.message) throw new Error(data?.error?.message || "Mesaj gönderilemedi");
+      if (!response.ok || !data?.message) throw new Error(data?.error?.message || t("room.sendError"));
       setMessages((current) => [...current, toRoomMessage(data.message!)]);
       setText("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Mesaj gönderilemedi");
+      setError(err instanceof Error ? err.message : t("room.sendError"));
     } finally {
       setSending(false);
     }
@@ -104,7 +107,7 @@ export function RoomChat({
     const response = await fetch(`/api/backend/rooms/${encodeURIComponent(room.slug)}/join`, { method: "POST" });
     if (!response.ok) {
       const data = await response.json().catch(() => null) as { error?: { message?: string } } | null;
-      setError(data?.error?.message || "Odaya katılınamadı");
+      setError(data?.error?.message || t("room.joinError"));
       return;
     }
     setIsMember(true);
@@ -124,10 +127,10 @@ export function RoomChat({
       const data = await response.json().catch(() => null) as
         | { message?: BackendRoomMessage; error?: { message?: string } }
         | null;
-      if (!response.ok || !data?.message) throw new Error(data?.error?.message || "Fotoğraf gönderilemedi");
+      if (!response.ok || !data?.message) throw new Error(data?.error?.message || t("room.imageError"));
       setMessages((current) => [...current, toRoomMessage(data.message!)]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Fotoğraf gönderilemedi");
+      setError(err instanceof Error ? err.message : t("room.imageError"));
     } finally {
       setSending(false);
     }
@@ -152,7 +155,7 @@ export function RoomChat({
             <p className="truncate text-xs text-text-secondary">
               <OnlineDot online={room.onlineCount > 0} />
               <span className="ml-1.5">
-                {formatNumber(room.onlineCount)} çevrimiçi · {formatNumber(room.memberCount)} üye
+                {t("room.onlineMembers", { online: formatNumber(room.onlineCount), members: formatNumber(room.memberCount) })}
               </span>
             </p>
           </div>
@@ -163,10 +166,10 @@ export function RoomChat({
               "btn-ghost flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border rounded-btn transition-colors",
               showMembers ? "bg-bg-tertiary text-text-primary" : "text-text-secondary"
             )}
-            title="Üye listesini aç/kapat"
+            title={t("room.membersToggle")}
           >
             <Icon name="users" size={14} />
-            <span className="hidden sm:inline">Üyeler</span>
+            <span className="hidden sm:inline">{t("room.members")}</span>
             <span className="tabular-nums bg-bg-primary px-1.5 py-0.5 rounded text-[10px]">{members.length}</span>
           </button>
         </div>
@@ -180,12 +183,12 @@ export function RoomChat({
             const grouped = prev && prev.userId === m.userId &&
               new Date(m.createdAt).getTime() - new Date(prev.createdAt).getTime() < 5 * 60 * 1000;
             return (
-              <MessageBubble key={m.id} message={m} grouped={!!grouped} currentUserId={user?.id} />
+              <MessageBubble key={m.id} message={m} grouped={!!grouped} currentUserId={user?.id} locale={locale} t={t} />
             );
           })}
           {messages.length === 0 && (
             <p className="py-10 text-center text-sm text-text-secondary">
-              Henüz mesaj yok. İlk mesajı sen at.
+              {t("room.noMessages")}
             </p>
           )}
         </div>
@@ -193,7 +196,7 @@ export function RoomChat({
         {error && <p role="alert" className="shrink-0 border-t border-border px-3 py-2 text-xs text-danger">{error}</p>}
         {!isMember ? (
           <div className="shrink-0 border-t border-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-            <button type="button" onClick={() => void join()} className="btn-primary w-full">Odaya Katıl</button>
+            <button type="button" onClick={() => void join()} className="btn-primary w-full">{t("room.join")}</button>
           </div>
         ) : <form onSubmit={send} className="flex shrink-0 items-center gap-2 border-t border-border bg-bg-secondary p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <input
@@ -207,19 +210,19 @@ export function RoomChat({
               event.target.value = "";
             }}
           />
-          <button type="button" onClick={() => imageInputRef.current?.click()} className="icon-btn h-11 w-11 shrink-0 border border-border bg-bg-tertiary sm:h-9 sm:w-9" aria-label="Resim ekle">
+          <button type="button" onClick={() => imageInputRef.current?.click()} className="icon-btn h-11 w-11 shrink-0 border border-border bg-bg-tertiary sm:h-9 sm:w-9" aria-label={t("room.addImage")}>
             <Icon name="image" size={18} />
           </button>
           <input
             type="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Mesaj yaz..."
+            placeholder={t("room.messagePlaceholder")}
             className="input min-w-0 py-2.5 sm:py-2"
           />
           <button type="submit" disabled={!text.trim() || sending} className="btn-primary h-11 w-11 shrink-0 px-0 sm:h-9 sm:w-auto sm:px-3">
             <Icon name="send" size={16} />
-            <span className="sr-only">Gönder</span>
+            <span className="sr-only">{t("common.send")}</span>
           </button>
         </form>}
       </div>
@@ -234,7 +237,7 @@ export function RoomChat({
           <div className="border-b border-border px-4 py-3">
             <h2 className="flex items-center gap-2 text-sm font-semibold text-text-primary">
               <Icon name="users" size={16} className="text-text-secondary" />
-              Üyeler
+              {t("room.members")}
               <span className="ml-auto text-xs font-normal text-text-secondary">
                 {members.length}
               </span>
@@ -267,7 +270,7 @@ export function RoomChat({
                       m.role === "owner" ? "bg-accent/15 text-accent" : "bg-warning/15 text-warning",
                     )}
                   >
-                    {m.role === "owner" ? "Sahip" : "Admin"}
+                    {m.role === "owner" ? t("common.owner") : t("common.admin")}
                   </span>
                 )}
               </div>
@@ -276,7 +279,7 @@ export function RoomChat({
           <div className="border-t border-border p-3">
             <button type="button" className="btn-secondary w-full">
               <Icon name="logout" size={16} />
-              Odadan Ayrıl
+              {t("room.leave")}
             </button>
           </div>
         </div>
@@ -289,10 +292,14 @@ function MessageBubble({
   message,
   grouped,
   currentUserId,
+  t,
+  locale,
 }: {
   message: RoomMessage;
   grouped: boolean;
   currentUserId?: string;
+  t: (key: string) => string;
+  locale: Locale;
 }) {
   const isMe = currentUserId && message.userId === currentUserId;
 
@@ -326,7 +333,7 @@ function MessageBubble({
         <a href={message.fileUrl || undefined} target="_blank" rel="noopener noreferrer" className="block cursor-pointer">
           <img
             src={message.fileUrl || ""}
-            alt={message.fileName || "Görsel"}
+            alt={message.fileName || t("common.image")}
             className="max-h-60 max-w-full object-contain transition-transform hover:scale-[1.02]"
           />
         </a>
@@ -356,7 +363,7 @@ function MessageBubble({
             {renderContent()}
             {!grouped && (
               <span className="text-[10px] text-text-secondary mt-1 px-1">
-                {timeAgo(message.createdAt)}
+{timeAgo(message.createdAt, locale)}
               </span>
             )}
           </div>
@@ -379,7 +386,7 @@ function MessageBubble({
               {message.author.displayName}
             </span>
             <time className="text-[10px] text-text-secondary">
-              {timeAgo(message.createdAt)}
+              {timeAgo(message.createdAt, locale)}
             </time>
           </div>
         )}

@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { Markdown } from "@/components/ui/Markdown";
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface MarkdownEditorProps {
   value: string;
@@ -15,9 +16,10 @@ interface MarkdownEditorProps {
 export function MarkdownEditor({
   value,
   onChange,
-  placeholder = "Markdown ile yaz... Kod blokları için ``` kullan.",
+  placeholder,
   minHeight = 280,
 }: MarkdownEditorProps) {
+  const { t } = useI18n();
   const [mode, setMode] = useState<"write" | "preview">("write");
   const ref = useRef<HTMLTextAreaElement>(null);
 
@@ -52,51 +54,51 @@ export function MarkdownEditor({
   return (
     <div className="overflow-hidden rounded-card border border-border bg-bg-secondary">
       <div className="flex flex-wrap items-center gap-1 border-b border-border bg-bg-tertiary/40 px-2 py-1.5">
-        <ToolbarButton label="Kalın" onClick={() => wrapSelection((s) => `**${s || "kalın"}**`)}>
+        <ToolbarButton label={t("editor.bold")} onClick={() => wrapSelection((s) => `**${s || t("editor.boldPlaceholder")}**`)}>
           <span className="font-bold">B</span>
         </ToolbarButton>
-        <ToolbarButton label="İtalik" onClick={() => wrapSelection((s) => `*${s || "italik"}*`)}>
+        <ToolbarButton label={t("editor.italic")} onClick={() => wrapSelection((s) => `*${s || t("editor.italicPlaceholder")}*`)}>
           <span className="italic">I</span>
         </ToolbarButton>
-        <ToolbarButton label="Üstü çizili" onClick={() => wrapSelection((s) => `~~${s || "çizili"}~~`)}>
+        <ToolbarButton label={t("editor.strikethrough")} onClick={() => wrapSelection((s) => `~~${s || t("editor.strikethroughPlaceholder")}~~`)}>
           <span className="line-through">S</span>
         </ToolbarButton>
         <Divider />
-        <ToolbarButton label="Başlık 1" onClick={() => insertLine("# ")}>
+        <ToolbarButton label={t("editor.heading1")} onClick={() => insertLine("# ")}>
           <span className="font-bold text-xs">H1</span>
         </ToolbarButton>
-        <ToolbarButton label="Başlık 2" onClick={() => insertLine("## ")}>
+        <ToolbarButton label={t("editor.heading2")} onClick={() => insertLine("## ")}>
           <span className="font-bold text-xs">H2</span>
         </ToolbarButton>
-        <ToolbarButton label="Başlık 3" onClick={() => insertLine("### ")}>
+        <ToolbarButton label={t("editor.heading3")} onClick={() => insertLine("### ")}>
           <span className="font-bold text-xs">H3</span>
         </ToolbarButton>
         <Divider />
-        <ToolbarButton label="Liste" onClick={() => insertLine("- ")}>
+        <ToolbarButton label={t("editor.list")} onClick={() => insertLine("- ")}>
           <Icon name="chevron-right" size={14} />
         </ToolbarButton>
-        <ToolbarButton label="Numaralı" onClick={() => insertLine("1. ")}>
+        <ToolbarButton label={t("editor.orderedList")} onClick={() => insertLine("1. ")}>
           <span className="text-xs">1.</span>
         </ToolbarButton>
-        <ToolbarButton label="Alıntı" onClick={() => insertLine("> ")}>
+        <ToolbarButton label={t("editor.quote")} onClick={() => insertLine("> ")}>
           <span className="text-xs">&ldquo;</span>
         </ToolbarButton>
-        <ToolbarButton label="Kod bloğu" onClick={() => wrapSelection((s) => `\n\`\`\`\n${s || "kod"}\n\`\`\`\n`)}>
+        <ToolbarButton label={t("editor.codeBlock")} onClick={() => wrapSelection((s) => `\n\`\`\`\n${s || t("editor.codePlaceholder")}\n\`\`\`\n`)}>
           <Icon name="hash" size={14} />
         </ToolbarButton>
-        <ToolbarButton label="Satır içi kod" onClick={() => wrapSelection((s) => `\`${s || "kod"}\``)}>
+        <ToolbarButton label={t("editor.inlineCode")} onClick={() => wrapSelection((s) => `\`${s || t("editor.codePlaceholder")}\``)}>
           <span className="font-mono text-xs">{"<>"}</span>
         </ToolbarButton>
-        <ToolbarButton label="Bağlantı" onClick={() => wrapSelection((s) => `[${s || "metin"}](https://)`)}>
+        <ToolbarButton label={t("editor.link")} onClick={() => wrapSelection((s) => `[${s || t("editor.linkPlaceholder")}](https://)`)}>
           <Icon name="link" size={14} />
         </ToolbarButton>
 
         <div className="ml-auto flex items-center gap-1">
           <ModeButton active={mode === "write"} onClick={() => setMode("write")}>
-            Yaz
+            {t("editor.write")}
           </ModeButton>
           <ModeButton active={mode === "preview"} onClick={() => setMode("preview")}>
-            Önizle
+            {t("editor.preview")}
           </ModeButton>
         </div>
       </div>
@@ -106,7 +108,7 @@ export function MarkdownEditor({
           ref={ref}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t("topic.markdownPlaceholder")}
           className="block w-full resize-y border-0 bg-transparent px-4 py-3 font-mono text-sm leading-relaxed text-text-primary placeholder:text-text-secondary/70 focus:outline-none focus:ring-0"
           style={{ minHeight }}
           spellCheck={false}
@@ -119,7 +121,7 @@ export function MarkdownEditor({
           {value.trim() ? (
             <Markdown>{value}</Markdown>
           ) : (
-            <p className="text-sm text-text-secondary">Önizleme boş. Bir şey yaz.</p>
+            <p className="text-sm text-text-secondary">{t("editor.emptyPreview")}</p>
           )}
         </div>
       )}

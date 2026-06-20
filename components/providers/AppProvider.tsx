@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { useI18n } from "@/components/providers/I18nProvider";
 import type { AppNotification, User } from "@/types";
 
 interface AuthInput {
@@ -31,6 +32,7 @@ interface AppState {
 const AppContext = createContext<AppState | null>(null);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
+  const { t } = useI18n();
   const [user, setUser] = useState<User | null>(null);
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [savedTopicIds, setSavedTopicIds] = useState<string[]>([]);
@@ -105,10 +107,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       | { user?: User; error?: { message?: string } }
       | null;
     if (!response.ok || !data?.user) {
-      throw new Error(data?.error?.message || "İşlem tamamlanamadı");
+      throw new Error(data?.error?.message || t("common.error"));
     }
     setUser(data.user);
-  }, []);
+  }, [t]);
 
   const login = useCallback(async (input: AuthInput) => {
     await authenticate("login", input);

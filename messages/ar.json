@@ -1,0 +1,10 @@
+{
+  "locale": "ar",
+  "languageName": "العربية",
+  "common": { "send": "إرسال", "loading": "جارٍ التحميل...", "save": "حفظ", "share": "مشاركة", "searching": "جارٍ البحث...", "error": "حدث خطأ" },
+  "nav": { "home": "الرئيسية", "explore": "استكشاف", "rooms": "الغرف", "newTopic": "موضوع جديد", "notifications": "الإشعارات", "saved": "المحفوظات", "settings": "الإعدادات", "myProfile": "ملفي الشخصي", "signIn": "تسجيل الدخول", "signUp": "إنشاء حساب", "signOut": "تسجيل الخروج", "searchPlaceholder": "ابحث في المواضيع والمستخدمين والغرف...", "backToHome": "العودة للرئيسية" },
+  "auth": { "loginTitle": "مرحباً بعودتك", "loginSubtitle": "سجّل الدخول وانضم إلى النقاشات.", "email": "البريد الإلكتروني", "password": "كلمة المرور", "signIn": "تسجيل الدخول", "signingIn": "جارٍ تسجيل الدخول...", "registerTitle": "إنشاء حساب", "registerSubtitle": "ابدأ مواضيع وناقش وابنِ سمعتك.", "displayName": "الاسم الظاهر", "username": "اسم المستخدم", "acceptTermsPrefix": "أوافق على ", "termsLink": "شروط الاستخدام", "acceptTermsSuffix": ".", "createAccount": "إنشاء الحساب", "creating": "جارٍ الإنشاء..." },
+  "settings": { "title": "الإعدادات", "language": "اللغة", "languageDesc": "اختر لغة الواجهة." },
+  "time": { "justNow": "الآن", "minutes": "{{n}} د", "hours": "{{n}} س", "days": "{{n}} ي", "months": "{{n}} شهر", "years": "{{n}} سنة" },
+  "legal": { "updatedAt": "آخر تحديث: {{date}}" }
+}

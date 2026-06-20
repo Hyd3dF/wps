@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { cn, formatNumber } from "@/lib/utils";
+import { useI18n } from "@/components/providers/I18nProvider";
 
 interface VoteBarProps {
   upvotes: number;
@@ -23,6 +24,7 @@ export function VoteBar({
   targetType,
   targetId,
 }: VoteBarProps) {
+  const { t } = useI18n();
   const [vote, setVote] = useState<1 | -1 | 0>(myVote);
   const [up, setUp] = useState(upvotes);
   const [down, setDown] = useState(downvotes);
@@ -83,7 +85,7 @@ export function VoteBar({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ value }),
         });
-        if (!response.ok) throw new Error("Oy kaydedilemedi");
+        if (!response.ok) throw new Error(t("topic.voteError"));
       } catch {
         setVote(previousVote);
         setUp(previousUp);
@@ -111,7 +113,7 @@ export function VoteBar({
               : "text-text-secondary hover:bg-bg-tertiary hover:text-success",
           )}
           aria-pressed={vote === 1}
-          aria-label="Oy ver"
+          aria-label={t("common.upvote")}
         >
           <Icon name="arrow-up" size={iconSize} />
         </button>
@@ -134,7 +136,7 @@ export function VoteBar({
               : "text-text-secondary hover:bg-bg-tertiary hover:text-danger",
           )}
           aria-pressed={vote === -1}
-          aria-label="Oy düşür"
+          aria-label={t("common.downvote")}
         >
           <Icon name="arrow-down" size={iconSize} />
         </button>
@@ -155,7 +157,7 @@ export function VoteBar({
             : "text-text-secondary hover:bg-bg-tertiary hover:text-success",
         )}
         aria-pressed={vote === 1}
-        aria-label="Oy ver"
+        aria-label={t("common.upvote")}
       >
         <Icon name="arrow-up" size={iconSize} />
       </button>
@@ -178,7 +180,7 @@ export function VoteBar({
             : "text-text-secondary hover:bg-bg-tertiary hover:text-danger",
         )}
         aria-pressed={vote === -1}
-        aria-label="Oy düşür"
+        aria-label={t("common.downvote")}
       >
         <Icon name="arrow-down" size={iconSize} />
       </button>

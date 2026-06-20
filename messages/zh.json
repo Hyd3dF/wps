@@ -1,0 +1,10 @@
+{
+  "locale": "zh",
+  "languageName": "中文",
+  "common": { "send": "发送", "loading": "加载中...", "save": "保存", "share": "分享", "searching": "搜索中...", "error": "发生错误" },
+  "nav": { "home": "首页", "explore": "探索", "rooms": "房间", "newTopic": "新话题", "notifications": "通知", "saved": "已保存", "settings": "设置", "myProfile": "我的资料", "signIn": "登录", "signUp": "注册", "signOut": "退出登录", "searchPlaceholder": "搜索话题、用户、房间...", "backToHome": "返回首页" },
+  "auth": { "loginTitle": "欢迎回来", "loginSubtitle": "登录账户并加入讨论。", "email": "邮箱", "password": "密码", "signIn": "登录", "signingIn": "登录中...", "registerTitle": "创建账户", "registerSubtitle": "发起话题、参与讨论并建立声誉。", "displayName": "显示名称", "username": "用户名", "acceptTermsPrefix": "我接受", "termsLink": "使用条款", "acceptTermsSuffix": "。", "createAccount": "创建账户", "creating": "创建中..." },
+  "settings": { "title": "设置", "language": "语言", "languageDesc": "选择界面语言。" },
+  "time": { "justNow": "刚刚", "minutes": "{{n}}分", "hours": "{{n}}小时", "days": "{{n}}天", "months": "{{n}}月", "years": "{{n}}年" },
+  "legal": { "updatedAt": "最后更新：{{date}}" }
+}

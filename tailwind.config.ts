@@ -10,15 +10,15 @@ const config: Config = {
       colors: {
         bg: {
           primary: "#0C0C0E",
-          secondary: "#141417",
-          tertiary: "#1C1C21",
+          secondary: "#131316",
+          tertiary: "#1A1A1F",
         },
         border: {
-          DEFAULT: "#2A2A32",
+          DEFAULT: "#303038",
         },
         text: {
           primary: "#F0F0F5",
-          secondary: "#9999AA",
+          secondary: "#AAAAB8",
         },
         accent: {
           DEFAULT: "#6C63FF",
@@ -61,6 +61,9 @@ const config: Config = {
         "slide-in": "slide-in 300ms ease-out",
         "fade-in": "fade-in 200ms ease-out",
         "slide-up": "slide-up 200ms ease-out",
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
     },
   },

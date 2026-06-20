@@ -1,0 +1,60 @@
+{
+  "locale": "es",
+  "languageName": "Español",
+  "common": {
+    "send": "Enviar",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "share": "Compartir",
+    "searching": "Buscando...",
+    "error": "Se produjo un error"
+  },
+  "nav": {
+    "home": "Inicio",
+    "explore": "Explorar",
+    "rooms": "Salas",
+    "newTopic": "Nuevo tema",
+    "notifications": "Notificaciones",
+    "saved": "Guardados",
+    "settings": "Configuración",
+    "myProfile": "Mi perfil",
+    "signIn": "Iniciar sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar sesión",
+    "searchPlaceholder": "Buscar temas, usuarios, salas...",
+    "backToHome": "Volver al inicio"
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión y únete a las conversaciones.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "signingIn": "Iniciando sesión...",
+    "registerTitle": "Crear una cuenta",
+    "registerSubtitle": "Abre temas, conversa y gana reputación.",
+    "displayName": "Nombre visible",
+    "username": "Nombre de usuario",
+    "acceptTermsPrefix": "Acepto los ",
+    "termsLink": "Términos de uso",
+    "acceptTermsSuffix": ".",
+    "createAccount": "Crear cuenta",
+    "creating": "Creando..."
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "languageDesc": "Elige el idioma de la interfaz."
+  },
+  "time": {
+    "justNow": "ahora",
+    "minutes": "{{n}} min",
+    "hours": "{{n}} h",
+    "days": "{{n}} d",
+    "months": "{{n}} mes",
+    "years": "{{n}} a"
+  },
+  "legal": {
+    "updatedAt": "Última actualización: {{date}}"
+  }
+}

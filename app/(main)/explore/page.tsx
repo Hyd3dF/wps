@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { TopicCardList } from "@/components/topic/TopicCard";
 import { EmptyState, PageHeader } from "@/components/ui/EmptyState";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { useI18n } from "@/components/providers/I18nProvider";
 import { CATEGORIES } from "@/types";
 import type { Category } from "@/types";
 import { cn } from "@/lib/utils";
@@ -14,13 +15,14 @@ import type { Topic } from "@/types";
 
 type Sort = "trending" | "new" | "top";
 
-const SORTS: { id: Sort; label: string; icon: IconName }[] = [
-  { id: "trending", label: "Trend", icon: "trending" },
-  { id: "new", label: "Yeni", icon: "clock" },
-  { id: "top", label: "En yüksek", icon: "arrow-up" },
+const SORTS: { id: Sort; key: string; icon: IconName }[] = [
+  { id: "trending", key: "explore.sortTrending", icon: "trending" },
+  { id: "new", key: "explore.sortNew", icon: "clock" },
+  { id: "top", key: "explore.sortTop", icon: "arrow-up" },
 ];
 
 function ExploreContent() {
+  const { t } = useI18n();
   const sp = useSearchParams();
   const [sort, setSort] = useState<Sort>(
     (sp.get("sort") as Sort) || "trending",
@@ -48,7 +50,7 @@ function ExploreContent() {
         const data = await response.json().catch(() => null) as
           | { topics?: BackendTopic[]; error?: { message?: string } }
           | null;
-        if (!response.ok) throw new Error(data?.error?.message || "Konular alınamadı");
+        if (!response.ok) throw new Error(data?.error?.message || t("explore.loadError"));
         setTopics((data?.topics ?? []).map(toTopic));
       } catch (error) {
         if (error instanceof Error && error.name !== "AbortError") setLoadError(error.message);
@@ -58,7 +60,7 @@ function ExploreContent() {
     };
     void load();
     return () => controller.abort();
-  }, [sort, category, tag]);
+  }, [sort, category, tag, t]);
 
   const popularTags = useMemo(
     () => Array.from(new Set(topics.flatMap((topic) => topic.tags))).slice(0, 12),
@@ -95,8 +97,8 @@ function ExploreContent() {
   return (
     <div className="flex flex-col gap-6">
       <PageHeader
-        title="Keşfet"
-        description="Tüm konuları kategori, etiket ve sıralamaya göre filtrele."
+        title={t("explore.title")}
+        description={t("explore.subtitle")}
       />
 
       <div className="card flex flex-col gap-4 py-4">
@@ -108,14 +110,14 @@ function ExploreContent() {
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Konularda ara..."
+            placeholder={t("explore.searchPlaceholder")}
             className="input pl-10"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Sırala:
+            {t("explore.sort")}
           </span>
           {SORTS.map((s) => (
             <button
@@ -130,39 +132,43 @@ function ExploreContent() {
               )}
             >
               <Icon name={s.icon} size={14} />
-              {s.label}
+              {t(s.key)}
             </button>
           ))}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Kategori:
+            {t("explore.categoryLabel")}
           </span>
           <FilterChip
             active={category === "all"}
             onClick={() => setCategory("all")}
-            label="Tümü"
+            label={t("common.all")}
           />
-          {CATEGORIES.map((c) => (
-            <FilterChip
-              key={c.id}
-              active={category === c.id}
-              onClick={() => setCategory(c.id)}
-              label={c.label}
-              color={c.color}
-            />
-          ))}
+          {CATEGORIES.map((c) => {
+            // Translate categories based on dictionary key or use fallback
+            const categoryLabel = t(`category.${c.id}`) !== `category.${c.id}` ? t(`category.${c.id}`) : c.label;
+            return (
+              <FilterChip
+                key={c.id}
+                active={category === c.id}
+                onClick={() => setCategory(c.id)}
+                label={categoryLabel}
+                color={c.color}
+              />
+            );
+          })}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Etiket:
+            {t("explore.tagLabel")}
           </span>
           <FilterChip
             active={tag === null}
             onClick={() => setTag(null)}
-            label="Tümü"
+            label={t("common.all")}
           />
           {popularTags.slice(0, 12).map((t) => (
             <FilterChip
@@ -176,20 +182,20 @@ function ExploreContent() {
       </div>
 
       <div className="flex items-center justify-between text-sm text-text-secondary">
-        <span>{filtered.length} konu</span>
+        <span>{t("explore.resultCount", { count: filtered.length })}</span>
       </div>
 
       {loadError ? (
-        <EmptyState icon="explore" title="Backend bağlantı hatası" description={loadError} />
+        <EmptyState icon="explore" title={t("explore.loadError")} description={loadError} />
       ) : loading ? (
-        <div className="card text-sm text-text-secondary">Yükleniyor...</div>
+        <div className="card text-sm text-text-secondary">{t("common.loading")}</div>
       ) : filtered.length > 0 ? (
         <TopicCardList topics={filtered} />
       ) : (
         <EmptyState
           icon="explore"
-          title="Konu bulunamadı"
-          description="Filtreleri değiştir ya da yeni bir konu aç."
+          title={t("explore.noResults")}
+          description={t("explore.noResultsDesc")}
         />
       )}
     </div>
@@ -230,8 +236,9 @@ function FilterChip({
 }
 
 export default function ExplorePage() {
+  const { t } = useI18n();
   return (
-    <Suspense fallback={<div className="card">Yükleniyor...</div>}>
+    <Suspense fallback={<div className="card">{t("common.loading")}</div>}>
       <ExploreContent />
     </Suspense>
   );

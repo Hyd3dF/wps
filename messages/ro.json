@@ -1,0 +1,10 @@
+{
+  "locale": "ro",
+  "languageName": "Română",
+  "common": { "send": "Trimite", "loading": "Se încarcă...", "save": "Salvează", "share": "Distribuie", "searching": "Se caută...", "error": "A apărut o eroare" },
+  "nav": { "home": "Acasă", "explore": "Explorează", "rooms": "Camere", "newTopic": "Subiect nou", "notifications": "Notificări", "saved": "Salvate", "settings": "Setări", "myProfile": "Profilul meu", "signIn": "Autentificare", "signUp": "Înregistrare", "signOut": "Deconectare", "searchPlaceholder": "Caută subiecte, utilizatori, camere...", "backToHome": "Înapoi acasă" },
+  "auth": { "loginTitle": "Bine ai revenit", "loginSubtitle": "Autentifică-te și alătură-te discuțiilor.", "email": "Email", "password": "Parolă", "signIn": "Autentificare", "signingIn": "Se autentifică...", "registerTitle": "Creează cont", "registerSubtitle": "Deschide subiecte, discută și construiește reputație.", "displayName": "Nume afișat", "username": "Nume utilizator", "acceptTermsPrefix": "Accept ", "termsLink": "Termenii de utilizare", "acceptTermsSuffix": ".", "createAccount": "Creează cont", "creating": "Se creează..." },
+  "settings": { "title": "Setări", "language": "Limbă", "languageDesc": "Alege limba interfeței." },
+  "time": { "justNow": "acum", "minutes": "{{n}} min", "hours": "{{n}} h", "days": "{{n}} z", "months": "{{n}} luni", "years": "{{n}} ani" },
+  "legal": { "updatedAt": "Ultima actualizare: {{date}}" }
+}

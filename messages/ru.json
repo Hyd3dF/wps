@@ -1,0 +1,10 @@
+{
+  "locale": "ru",
+  "languageName": "Русский",
+  "common": { "send": "Отправить", "loading": "Загрузка...", "save": "Сохранить", "share": "Поделиться", "searching": "Поиск...", "error": "Произошла ошибка" },
+  "nav": { "home": "Главная", "explore": "Обзор", "rooms": "Комнаты", "newTopic": "Новая тема", "notifications": "Уведомления", "saved": "Сохранено", "settings": "Настройки", "myProfile": "Мой профиль", "signIn": "Войти", "signUp": "Регистрация", "signOut": "Выйти", "searchPlaceholder": "Искать темы, пользователей, комнаты...", "backToHome": "На главную" },
+  "auth": { "loginTitle": "С возвращением", "loginSubtitle": "Войдите, чтобы присоединиться к обсуждениям.", "email": "Email", "password": "Пароль", "signIn": "Войти", "signingIn": "Вход...", "registerTitle": "Создать аккаунт", "registerSubtitle": "Создавайте темы, обсуждайте и повышайте репутацию.", "displayName": "Отображаемое имя", "username": "Имя пользователя", "acceptTermsPrefix": "Я принимаю ", "termsLink": "Условия использования", "acceptTermsSuffix": ".", "createAccount": "Создать аккаунт", "creating": "Создание..." },
+  "settings": { "title": "Настройки", "language": "Язык", "languageDesc": "Выберите язык интерфейса." },
+  "time": { "justNow": "только что", "minutes": "{{n}} мин", "hours": "{{n}} ч", "days": "{{n}} д", "months": "{{n}} мес", "years": "{{n}} г" },
+  "legal": { "updatedAt": "Последнее обновление: {{date}}" }
+}

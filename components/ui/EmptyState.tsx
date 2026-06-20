@@ -17,12 +17,12 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center rounded-card border border-dashed border-border bg-bg-secondary/50 px-6 py-16 text-center",
+        "flex flex-col items-center justify-center rounded-card border border-dashed border-border bg-bg-secondary/50 px-5 py-10 text-center sm:py-12",
         className,
       )}
     >
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-bg-tertiary text-text-secondary">
-        <Icon name={icon} size={26} />
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-btn border border-border bg-bg-tertiary text-text-secondary">
+        <Icon name={icon} size={20} />
       </div>
       <h3 className="text-lg font-display font-semibold text-text-primary">
         {title}
@@ -45,9 +45,9 @@ export function PageHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+    <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
       <div>
-        <h1 className="text-2xl font-display font-bold tracking-tight text-text-primary">
+        <h1 className="text-xl font-display font-semibold tracking-tight text-text-primary sm:text-2xl">
           {title}
         </h1>
         {description && (

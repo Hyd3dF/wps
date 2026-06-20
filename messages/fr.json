@@ -1,0 +1,10 @@
+{
+  "locale": "fr",
+  "languageName": "Français",
+  "common": { "send": "Envoyer", "loading": "Chargement...", "save": "Enregistrer", "share": "Partager", "searching": "Recherche...", "error": "Une erreur est survenue" },
+  "nav": { "home": "Accueil", "explore": "Explorer", "rooms": "Salons", "newTopic": "Nouveau sujet", "notifications": "Notifications", "saved": "Enregistrés", "settings": "Paramètres", "myProfile": "Mon profil", "signIn": "Connexion", "signUp": "Inscription", "signOut": "Déconnexion", "searchPlaceholder": "Rechercher des sujets, utilisateurs, salons...", "backToHome": "Retour à l’accueil" },
+  "auth": { "loginTitle": "Bon retour", "loginSubtitle": "Connectez-vous et rejoignez les discussions.", "email": "E-mail", "password": "Mot de passe", "signIn": "Connexion", "signingIn": "Connexion...", "registerTitle": "Créer un compte", "registerSubtitle": "Lancez des sujets, discutez et développez votre réputation.", "displayName": "Nom affiché", "username": "Nom d’utilisateur", "acceptTermsPrefix": "J’accepte les ", "termsLink": "Conditions d’utilisation", "acceptTermsSuffix": ".", "createAccount": "Créer un compte", "creating": "Création..." },
+  "settings": { "title": "Paramètres", "language": "Langue", "languageDesc": "Choisissez la langue de l’interface." },
+  "time": { "justNow": "à l’instant", "minutes": "{{n}} min", "hours": "{{n}} h", "days": "{{n}} j", "months": "{{n}} mois", "years": "{{n}} an" },
+  "legal": { "updatedAt": "Dernière mise à jour : {{date}}" }
+}

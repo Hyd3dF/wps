@@ -1,0 +1,10 @@
+{
+  "locale": "ko",
+  "languageName": "한국어",
+  "common": { "send": "보내기", "loading": "불러오는 중...", "save": "저장", "share": "공유", "searching": "검색 중...", "error": "오류가 발생했습니다" },
+  "nav": { "home": "홈", "explore": "탐색", "rooms": "방", "newTopic": "새 주제", "notifications": "알림", "saved": "저장됨", "settings": "설정", "myProfile": "내 프로필", "signIn": "로그인", "signUp": "가입", "signOut": "로그아웃", "searchPlaceholder": "주제, 사용자, 방 검색...", "backToHome": "홈으로 돌아가기" },
+  "auth": { "loginTitle": "다시 오신 것을 환영합니다", "loginSubtitle": "로그인하고 토론에 참여하세요.", "email": "이메일", "password": "비밀번호", "signIn": "로그인", "signingIn": "로그인 중...", "registerTitle": "계정 만들기", "registerSubtitle": "주제를 만들고 토론하며 평판을 쌓으세요.", "displayName": "표시 이름", "username": "사용자 이름", "acceptTermsPrefix": "", "termsLink": "이용약관", "acceptTermsSuffix": "에 동의합니다.", "createAccount": "계정 만들기", "creating": "생성 중..." },
+  "settings": { "title": "설정", "language": "언어", "languageDesc": "인터페이스 언어를 선택하세요." },
+  "time": { "justNow": "방금", "minutes": "{{n}}분", "hours": "{{n}}시간", "days": "{{n}}일", "months": "{{n}}개월", "years": "{{n}}년" },
+  "legal": { "updatedAt": "마지막 업데이트: {{date}}" }
+}

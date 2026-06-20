@@ -1,0 +1,10 @@
+{
+  "locale": "it",
+  "languageName": "Italiano",
+  "common": { "send": "Invia", "loading": "Caricamento...", "save": "Salva", "share": "Condividi", "searching": "Ricerca...", "error": "Si è verificato un errore" },
+  "nav": { "home": "Home", "explore": "Esplora", "rooms": "Stanze", "newTopic": "Nuovo argomento", "notifications": "Notifiche", "saved": "Salvati", "settings": "Impostazioni", "myProfile": "Il mio profilo", "signIn": "Accedi", "signUp": "Registrati", "signOut": "Esci", "searchPlaceholder": "Cerca argomenti, utenti, stanze...", "backToHome": "Torna alla home" },
+  "auth": { "loginTitle": "Bentornato", "loginSubtitle": "Accedi e partecipa alle discussioni.", "email": "Email", "password": "Password", "signIn": "Accedi", "signingIn": "Accesso...", "registerTitle": "Crea un account", "registerSubtitle": "Apri argomenti, discuti e costruisci reputazione.", "displayName": "Nome visualizzato", "username": "Nome utente", "acceptTermsPrefix": "Accetto i ", "termsLink": "Termini di utilizzo", "acceptTermsSuffix": ".", "createAccount": "Crea account", "creating": "Creazione..." },
+  "settings": { "title": "Impostazioni", "language": "Lingua", "languageDesc": "Scegli la lingua dell’interfaccia." },
+  "time": { "justNow": "ora", "minutes": "{{n}} min", "hours": "{{n}} h", "days": "{{n}} g", "months": "{{n}} mesi", "years": "{{n}} a" },
+  "legal": { "updatedAt": "Ultimo aggiornamento: {{date}}" }
+}

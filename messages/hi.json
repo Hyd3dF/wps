@@ -1,0 +1,10 @@
+{
+  "locale": "hi",
+  "languageName": "हिन्दी",
+  "common": { "send": "भेजें", "loading": "लोड हो रहा है...", "save": "सहेजें", "share": "साझा करें", "searching": "खोज जारी...", "error": "एक त्रुटि हुई" },
+  "nav": { "home": "होम", "explore": "एक्सप्लोर", "rooms": "रूम", "newTopic": "नया विषय", "notifications": "सूचनाएँ", "saved": "सहेजा गया", "settings": "सेटिंग्स", "myProfile": "मेरी प्रोफ़ाइल", "signIn": "साइन इन", "signUp": "साइन अप", "signOut": "साइन आउट", "searchPlaceholder": "विषय, उपयोगकर्ता, रूम खोजें...", "backToHome": "होम पर वापस जाएँ" },
+  "auth": { "loginTitle": "फिर से स्वागत है", "loginSubtitle": "साइन इन करें और चर्चाओं में शामिल हों।", "email": "ईमेल", "password": "पासवर्ड", "signIn": "साइन इन", "signingIn": "साइन इन हो रहा है...", "registerTitle": "खाता बनाएँ", "registerSubtitle": "विषय शुरू करें, चर्चा करें और प्रतिष्ठा बनाएँ।", "displayName": "दिखने वाला नाम", "username": "उपयोगकर्ता नाम", "acceptTermsPrefix": "मैं ", "termsLink": "उपयोग की शर्तें", "acceptTermsSuffix": " स्वीकार करता/करती हूँ।", "createAccount": "खाता बनाएँ", "creating": "बन रहा है..." },
+  "settings": { "title": "सेटिंग्स", "language": "भाषा", "languageDesc": "इंटरफ़ेस भाषा चुनें।" },
+  "time": { "justNow": "अभी", "minutes": "{{n}} मि", "hours": "{{n}} घं", "days": "{{n}} दिन", "months": "{{n}} माह", "years": "{{n}} वर्ष" },
+  "legal": { "updatedAt": "अंतिम अपडेट: {{date}}" }
+}

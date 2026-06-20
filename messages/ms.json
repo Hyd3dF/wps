@@ -1,0 +1,10 @@
+{
+  "locale": "ms",
+  "languageName": "Bahasa Melayu",
+  "common": { "send": "Hantar", "loading": "Memuatkan...", "save": "Simpan", "share": "Kongsi", "searching": "Mencari...", "error": "Ralat berlaku" },
+  "nav": { "home": "Laman utama", "explore": "Teroka", "rooms": "Bilik", "newTopic": "Topik baharu", "notifications": "Pemberitahuan", "saved": "Disimpan", "settings": "Tetapan", "myProfile": "Profil saya", "signIn": "Log masuk", "signUp": "Daftar", "signOut": "Log keluar", "searchPlaceholder": "Cari topik, pengguna, bilik...", "backToHome": "Kembali ke laman utama" },
+  "auth": { "loginTitle": "Selamat kembali", "loginSubtitle": "Log masuk dan sertai perbincangan.", "email": "E-mel", "password": "Kata laluan", "signIn": "Log masuk", "signingIn": "Sedang log masuk...", "registerTitle": "Cipta akaun", "registerSubtitle": "Mulakan topik, berbincang dan bina reputasi.", "displayName": "Nama paparan", "username": "Nama pengguna", "acceptTermsPrefix": "Saya menerima ", "termsLink": "Terma Penggunaan", "acceptTermsSuffix": ".", "createAccount": "Cipta akaun", "creating": "Mencipta..." },
+  "settings": { "title": "Tetapan", "language": "Bahasa", "languageDesc": "Pilih bahasa antara muka." },
+  "time": { "justNow": "baru sahaja", "minutes": "{{n}} min", "hours": "{{n}} jam", "days": "{{n}} hari", "months": "{{n}} bln", "years": "{{n}} thn" },
+  "legal": { "updatedAt": "Terakhir dikemas kini: {{date}}" }
+}

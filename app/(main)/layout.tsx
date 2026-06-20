@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
-      <div className="container-app flex flex-1 gap-6 py-6">
+      <div className="container-app flex flex-1 gap-5 py-4 sm:py-5">
         <Sidebar />
         <main className="min-w-0 flex-1">{children}</main>
       </div>

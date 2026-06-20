@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 import { Icon } from "@/components/ui/Icon";
+import { getTranslator } from "@/lib/i18n";
 
-export function Footer() {
+export async function Footer() {
+  const { t } = await getTranslator();
   const year = new Date().getFullYear();
 
   return (
@@ -11,33 +13,33 @@ export function Footer() {
         <div className="flex flex-col gap-2">
           <Logo />
           <p className="max-w-xs text-xs leading-relaxed text-text-secondary">
-            Geliştiriciler için konu-odaklı sosyal platform. Kalıcı, aranabilir, büyüyen tartışmalar.
+            {t("footer.tagline")}
           </p>
         </div>
 
         <nav className="flex flex-col gap-3">
           <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Platform
+            {t("footer.platform")}
           </h2>
           <ul className="flex flex-col gap-2 text-sm text-text-secondary">
             <li>
               <Link href="/explore" className="transition-colors hover:text-text-primary">
-                Keşfet
+                {t("nav.explore")}
               </Link>
             </li>
             <li>
               <Link href="/rooms" className="transition-colors hover:text-text-primary">
-                Odalar
+                {t("nav.rooms")}
               </Link>
             </li>
             <li>
               <Link href="/new-topic" className="transition-colors hover:text-text-primary">
-                Konu Aç
+                {t("nav.newTopic")}
               </Link>
             </li>
             <li>
               <Link href="/pricing" className="transition-colors hover:text-text-primary">
-                Fiyatlandırma
+                {t("pricing.badge")}
               </Link>
             </li>
           </ul>
@@ -45,22 +47,22 @@ export function Footer() {
 
         <nav className="flex flex-col gap-3">
           <h2 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
-            Yasal
+            {t("footer.legal")}
           </h2>
           <ul className="flex flex-col gap-2 text-sm text-text-secondary">
             <li>
               <Link href="/terms" className="transition-colors hover:text-text-primary">
-                Kullanım Şartları
+                {t("legal.terms.title")}
               </Link>
             </li>
             <li>
               <Link href="/privacy" className="transition-colors hover:text-text-primary">
-                Gizlilik Politikası
+                {t("legal.privacy.title")}
               </Link>
             </li>
             <li>
               <Link href="/refund" className="transition-colors hover:text-text-primary">
-                İade Politikası
+                {t("legal.refund.title")}
               </Link>
             </li>
           </ul>
@@ -79,7 +81,7 @@ export function Footer() {
             support@fluxsphere.sbs
           </a>
           <p className="text-xs text-text-secondary/70">
-            &copy; {year} Oroya. Tüm hakları saklıdır.
+            &copy; {year} {t("footer.copyright")}
           </p>
         </div>
       </div>

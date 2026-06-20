@@ -1,0 +1,10 @@
+{
+  "locale": "uk",
+  "languageName": "Українська",
+  "common": { "send": "Надіслати", "loading": "Завантаження...", "save": "Зберегти", "share": "Поділитися", "searching": "Пошук...", "error": "Сталася помилка" },
+  "nav": { "home": "Головна", "explore": "Огляд", "rooms": "Кімнати", "newTopic": "Нова тема", "notifications": "Сповіщення", "saved": "Збережене", "settings": "Налаштування", "myProfile": "Мій профіль", "signIn": "Увійти", "signUp": "Зареєструватися", "signOut": "Вийти", "searchPlaceholder": "Шукати теми, користувачів, кімнати...", "backToHome": "Назад на головну" },
+  "auth": { "loginTitle": "З поверненням", "loginSubtitle": "Увійдіть і долучайтесь до обговорень.", "email": "Email", "password": "Пароль", "signIn": "Увійти", "signingIn": "Вхід...", "registerTitle": "Створити акаунт", "registerSubtitle": "Створюйте теми, обговорюйте та будуйте репутацію.", "displayName": "Відображуване ім’я", "username": "Ім’я користувача", "acceptTermsPrefix": "Я приймаю ", "termsLink": "Умови використання", "acceptTermsSuffix": ".", "createAccount": "Створити акаунт", "creating": "Створення..." },
+  "settings": { "title": "Налаштування", "language": "Мова", "languageDesc": "Оберіть мову інтерфейсу." },
+  "time": { "justNow": "щойно", "minutes": "{{n}} хв", "hours": "{{n}} год", "days": "{{n}} дн", "months": "{{n}} міс", "years": "{{n}} р" },
+  "legal": { "updatedAt": "Останнє оновлення: {{date}}" }
+}
