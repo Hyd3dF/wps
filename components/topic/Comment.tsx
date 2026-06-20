@@ -21,14 +21,14 @@ export function CommentItem({ comment }: { comment: Comment }) {
   const canNest = comment.depth < MAX_DEPTH - 1;
 
   return (
-    <div className={cn(comment.depth > 0 && "mt-3")}>
+    <div className={cn(comment.depth > 0 && "mt-4")}>
       <div className="flex gap-3">
-        <Avatar user={comment.author} size={32} href={`/u/${comment.author.username}`} />
+        <Avatar user={comment.author} size={28} href={`/u/${comment.author.username}`} />
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2 text-xs text-text-secondary">
+          <div className="flex items-center gap-2 text-[13px] text-text-secondary">
             <Link
               href={`/u/${comment.author.username}`}
-              className="font-medium text-text-primary transition-colors hover:text-accent"
+              className="font-semibold text-text-primary transition-colors hover:text-accent"
             >
               {comment.author.displayName}
             </Link>
@@ -37,7 +37,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
             <button
               type="button"
               onClick={() => setCollapsed((c) => !c)}
-              className="icon-btn h-6 w-6 text-text-secondary/70"
+              className="h-5 w-5 inline-flex items-center justify-center rounded hover:bg-bg-tertiary text-text-secondary transition-colors"
               aria-label={collapsed ? t("comment.expand") : t("comment.collapse")}
             >
               <Icon name={collapsed ? "chevron-right" : "chevron-down"} size={14} />
@@ -46,11 +46,11 @@ export function CommentItem({ comment }: { comment: Comment }) {
 
           {!collapsed && (
             <>
-              <div className="mt-1.5 text-[15px] text-[#ededf1]">
+              <div className="mt-1 text-[14px] leading-relaxed text-text-primary">
                 <Markdown>{comment.body}</Markdown>
               </div>
 
-              <div className="mt-2 flex items-center gap-3">
+              <div className="mt-1.5 flex items-center gap-3">
                 <VoteBar
                   upvotes={comment.upvotes}
                   downvotes={comment.downvotes}
@@ -64,7 +64,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
                   <button
                     type="button"
                     onClick={() => setShowReply((s) => !s)}
-                    className="inline-flex items-center gap-1 text-xs text-text-secondary transition-colors hover:text-accent"
+                    className="inline-flex items-center gap-1.5 text-[12px] font-medium text-text-secondary transition-colors hover:text-white"
                   >
                     <Icon name="reply" size={14} />
                     {t("comment.reply")}
@@ -84,7 +84,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
               )}
 
               {comment.children.length > 0 && (
-                <div className="mt-3 border-l border-border pl-3 sm:pl-4">
+                <div className="mt-3 border-l-2 border-border/50 pl-4">
                   {comment.children.map((child) => (
                     <CommentItem key={child.id} comment={child} />
                   ))}
@@ -161,14 +161,14 @@ export function CommentComposer({
   };
 
   return (
-    <form onSubmit={submit} className="rounded-card border border-border bg-bg-tertiary/40 p-3">
-      <div className="mb-2 flex items-center gap-1">
+    <form onSubmit={submit} className="flex flex-col gap-3">
+      <div className="flex items-center gap-1">
         <button
           type="button"
           onClick={() => setPreview(false)}
           className={cn(
-            "rounded-badge px-2 py-1 text-xs transition-colors",
-            !preview ? "bg-bg-tertiary text-text-primary" : "text-text-secondary hover:text-text-primary",
+            "px-2 py-1 text-[13px] font-semibold transition-colors rounded",
+            !preview ? "bg-bg-tertiary text-white" : "text-text-secondary hover:text-white hover:bg-bg-tertiary/50",
           )}
         >
           {t("common.write")}
@@ -177,15 +177,15 @@ export function CommentComposer({
           type="button"
           onClick={() => setPreview(true)}
           className={cn(
-            "rounded-badge px-2 py-1 text-xs transition-colors",
-            preview ? "bg-bg-tertiary text-text-primary" : "text-text-secondary hover:text-text-primary",
+            "px-2 py-1 text-[13px] font-semibold transition-colors rounded",
+            preview ? "bg-bg-tertiary text-white" : "text-text-secondary hover:text-white hover:bg-bg-tertiary/50",
           )}
         >
           {t("common.preview")}
         </button>
       </div>
       {preview ? (
-        <div className="min-h-[96px] rounded-btn border border-border bg-bg-secondary p-3 text-sm">
+        <div className="min-h-[96px] rounded-md border border-border bg-transparent p-3 text-[14px]">
           {body.trim() ? (
             <Markdown>{body}</Markdown>
           ) : (
@@ -198,26 +198,26 @@ export function CommentComposer({
           onChange={(e) => setBody(e.target.value)}
           placeholder={placeholder ?? t("comment.composerPlaceholder")}
           autoFocus={autoFocus}
-          className="textarea min-h-[96px]"
+          className="w-full min-h-[96px] rounded-md border border-border bg-transparent px-3 py-2 text-[14px] text-white placeholder:text-text-secondary/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/50 resize-y"
         />
       )}
-      <div className="mt-2 flex items-center justify-between">
-        <span className="text-xs text-text-secondary">
+      <div className="flex items-center justify-between">
+        <span className="text-[12px] text-text-secondary">
           {stripMarkdown(body).length} {t("common.characters")}
         </span>
         <div className="flex gap-2">
           {onCancel && (
-            <button type="button" onClick={onCancel} className="btn-ghost">
+            <button type="button" onClick={onCancel} className="px-3 py-1.5 text-[13px] font-semibold text-text-secondary hover:text-white transition-colors">
               {t("common.cancel")}
             </button>
           )}
-          <button type="submit" disabled={!body.trim() || submitting} className="btn-primary">
+          <button type="submit" disabled={!body.trim() || submitting} className="btn-primary py-1.5 px-4 text-[13px]">
             <Icon name="send" size={14} />
             {submitting ? t("common.sending") : t("common.send")}
           </button>
         </div>
       </div>
-      {error && <p role="alert" className="mt-2 text-xs text-danger">{error}</p>}
+      {error && <p role="alert" className="text-[13px] text-danger">{error}</p>}
     </form>
   );
 }

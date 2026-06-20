@@ -7,8 +7,7 @@ import { TopicCardList } from "@/components/topic/TopicCard";
 import { EmptyState, PageHeader } from "@/components/ui/EmptyState";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { useI18n } from "@/components/providers/I18nProvider";
-import { CATEGORIES } from "@/types";
-import type { Category } from "@/types";
+import { useCategories } from "@/hooks/useCategories";
 import { cn } from "@/lib/utils";
 import { toTopic, type BackendTopic } from "@/lib/backend-content";
 import type { Topic } from "@/types";
@@ -24,11 +23,12 @@ const SORTS: { id: Sort; key: string; icon: IconName }[] = [
 function ExploreContent() {
   const { t } = useI18n();
   const sp = useSearchParams();
+  const { categories } = useCategories();
   const [sort, setSort] = useState<Sort>(
     (sp.get("sort") as Sort) || "trending",
   );
-  const [category, setCategory] = useState<Category | "all">(
-    (sp.get("category") as Category) || "all",
+  const [category, setCategory] = useState<string | "all">(
+    (sp.get("category") as string) || "all",
   );
   const [tag, setTag] = useState<string | null>(sp.get("tag"));
   const [search, setSearch] = useState("");
@@ -146,15 +146,13 @@ function ExploreContent() {
             onClick={() => setCategory("all")}
             label={t("common.all")}
           />
-          {CATEGORIES.map((c) => {
-            // Translate categories based on dictionary key or use fallback
-            const categoryLabel = t(`category.${c.id}`) !== `category.${c.id}` ? t(`category.${c.id}`) : c.label;
+          {categories.map((c) => {
             return (
               <FilterChip
                 key={c.id}
                 active={category === c.id}
                 onClick={() => setCategory(c.id)}
-                label={categoryLabel}
+                label={c.label}
                 color={c.color}
               />
             );

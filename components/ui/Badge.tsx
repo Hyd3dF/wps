@@ -6,6 +6,7 @@ import type { Category } from "@/types";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
 import { useI18n } from "@/components/providers/I18nProvider";
+import { useCategories } from "@/hooks/useCategories";
 
 export function CategoryBadge({
   category,
@@ -15,14 +16,24 @@ export function CategoryBadge({
   className?: string;
 }) {
   const { t } = useI18n();
-  const cat = CATEGORIES.find((c) => c.id === category);
-  if (!cat) return null;
+  const { categories } = useCategories();
+  const cat = categories.find((c) => c.id === category);
+  
+  if (!cat) {
+    // Fallback if loading or missing
+    return (
+      <span className={cn("badge-category", className)} style={{ color: "#888" }}>
+        {category}
+      </span>
+    );
+  }
+
   return (
     <span
       className={cn("badge-category", className)}
       style={{ color: cat.color }}
     >
-      {t(`category.${cat.id}`)}
+      {cat.label}
     </span>
   );
 }

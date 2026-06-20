@@ -1,4 +1,11 @@
-export type Category = "general" | "dev" | "design" | "startup" | "offtopic";
+export type Category = string;
+
+export interface DynamicCategory {
+  id: string;
+  label: string;
+  color: string;
+  createdBy?: string;
+}
 
 export const CATEGORIES: { id: Category; label: string; color: string }[] = [
   { id: "general", label: "Genel", color: "#9999AA" },

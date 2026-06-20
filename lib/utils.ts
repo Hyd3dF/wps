@@ -28,12 +28,7 @@ export function timeAgo(iso: string, locale: Locale = "tr"): string {
 }
 
 export function formatDate(iso: string, locale: Locale = "tr"): string {
-  const dateLocaleMap: Record<Locale, string> = {
-    tr: "tr-TR",
-    en: "en-US",
-  };
-
-  return new Date(iso).toLocaleDateString(dateLocaleMap[locale] ?? "en-US", {
+  return new Date(iso).toLocaleDateString(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",

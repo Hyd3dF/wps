@@ -109,20 +109,20 @@ export default function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl relative pb-12">
-      <h1 className="mb-8 flex items-center gap-3 text-3xl font-display font-extrabold tracking-tight text-white">
-        <Icon name="settings" size={28} className="text-accent" />
+      <h1 className="mb-8 flex items-center gap-3 text-2xl font-display font-bold tracking-tight text-white">
+        <Icon name="settings" size={24} className="text-accent" />
         {t("settings.title")}
       </h1>
 
-      <div className="card mb-8 flex items-center justify-between gap-5 relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-50" />
-        <div className="relative z-10">
-          <h2 className="font-display font-bold text-white text-[15px]">{t("settings.language")}</h2>
-          <p className="mt-1 text-[13px] text-text-secondary/80 font-medium">
+      {/* Language Section - Flattened */}
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border-b border-border pb-6">
+        <div>
+          <h2 className="font-display font-bold text-white text-[14px]">{t("settings.language")}</h2>
+          <p className="mt-1 text-[13px] text-text-secondary">
             {t("settings.languageDesc")}
           </p>
         </div>
-        <div className="relative z-10">
+        <div>
           <LanguageSwitcher />
         </div>
       </div>
@@ -133,11 +133,15 @@ export default function SettingsPage() {
             id: "profile",
             label: t("settings.tabProfile"),
             content: (
-              <form onSubmit={save} className="flex flex-col gap-6 animate-fade-in">
-                <div className="card relative overflow-hidden">
-                  <h2 className="mb-5 font-display text-[15px] font-bold text-white tracking-tight">{t("settings.avatar")}</h2>
-                  <div className="flex items-center gap-5 relative z-10">
-                    <Avatar user={user} size={80} className="ring-4 ring-white/[0.03] shadow-xl" />
+              <form onSubmit={save} className="flex flex-col gap-8 animate-fade-in pt-4">
+                {/* Avatar Section */}
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 border-b border-border pb-8">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-white tracking-tight">{t("settings.avatar")}</h2>
+                    <p className="text-[12px] mt-1 text-text-secondary">{t("settings.avatarHint")}</p>
+                  </div>
+                  <div className="sm:w-2/3 flex items-center gap-5">
+                    <Avatar user={user} size={72} className="ring-1 ring-white/10" />
                     <div className="flex flex-col gap-2.5">
                       <input
                         type="file"
@@ -150,26 +154,29 @@ export default function SettingsPage() {
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
                         disabled={uploadingAvatar}
-                        className="btn-secondary rounded-full px-5 py-2 text-[12px] h-9"
+                        className="btn-secondary rounded-md px-4 py-1.5 text-[12px]"
                       >
                         <Icon name="image" size={14} />
                         {uploadingAvatar ? t("settings.uploading") : t("settings.uploadAvatar")}
                       </button>
-                      <p className="text-[11px] font-medium text-text-secondary/60">{t("settings.avatarHint")}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="card relative overflow-hidden">
-                  <h2 className="mb-5 font-display text-[15px] font-bold text-white tracking-tight">{t("settings.general")}</h2>
-                  <div className="relative z-10 space-y-5">
+                {/* General Section */}
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 border-b border-border pb-8">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-white tracking-tight">{t("settings.general")}</h2>
+                    <p className="text-[12px] mt-1 text-text-secondary">Basic information about yourself.</p>
+                  </div>
+                  <div className="sm:w-2/3 space-y-5">
                     <Field label={t("settings.displayName")}>
                       <input
                         type="text"
                         value={form.displayName}
                         onChange={(e) => update("displayName", e.target.value)}
                         maxLength={64}
-                        className="input rounded-xl text-[13px]"
+                        className="w-full bg-bg-secondary border border-border rounded-lg px-3 py-2 text-[14px] text-white focus:border-accent focus:ring-1 focus:ring-accent/50 transition-colors"
                       />
                     </Field>
                     <Field label={t("settings.bio")}>
@@ -178,7 +185,7 @@ export default function SettingsPage() {
                         onChange={(e) => update("bio", e.target.value)}
                         maxLength={500}
                         placeholder={t("settings.bioPlaceholder")}
-                        className="textarea min-h-[100px] rounded-xl text-[13px]"
+                        className="w-full min-h-[90px] resize-y bg-bg-secondary border border-border rounded-lg px-3 py-2 text-[14px] text-white focus:border-accent focus:ring-1 focus:ring-accent/50 transition-colors"
                       />
                       <p className="mt-1.5 text-right text-[11px] font-mono tabular-nums text-text-secondary/60">
                         {form.bio.length}/500
@@ -187,16 +194,20 @@ export default function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="card relative overflow-hidden">
-                  <h2 className="mb-5 font-display text-[15px] font-bold text-white tracking-tight">{t("settings.links")}</h2>
-                  <div className="relative z-10 space-y-5">
+                {/* Links Section */}
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 pb-4">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-white tracking-tight">{t("settings.links")}</h2>
+                    <p className="text-[12px] mt-1 text-text-secondary">Links to your other online profiles.</p>
+                  </div>
+                  <div className="sm:w-2/3 space-y-5">
                     <Field label={t("settings.website")}>
                       <input
                         type="url"
                         value={form.websiteUrl}
                         onChange={(e) => update("websiteUrl", e.target.value)}
                         placeholder="https://"
-                        className="input rounded-xl text-[13px]"
+                        className="w-full bg-bg-secondary border border-border rounded-lg px-3 py-2 text-[14px] text-white focus:border-accent focus:ring-1 focus:ring-accent/50 transition-colors"
                       />
                     </Field>
                     <Field label={t("settings.github")}>
@@ -205,7 +216,7 @@ export default function SettingsPage() {
                         value={form.githubUrl}
                         onChange={(e) => update("githubUrl", e.target.value)}
                         placeholder="https://github.com/username"
-                        className="input rounded-xl text-[13px]"
+                        className="w-full bg-bg-secondary border border-border rounded-lg px-3 py-2 text-[14px] text-white focus:border-accent focus:ring-1 focus:ring-accent/50 transition-colors"
                       />
                     </Field>
                     <Field label={t("settings.twitter")}>
@@ -214,28 +225,23 @@ export default function SettingsPage() {
                         value={form.twitterUrl}
                         onChange={(e) => update("twitterUrl", e.target.value)}
                         placeholder="https://twitter.com/username"
-                        className="input rounded-xl text-[13px]"
+                        className="w-full bg-bg-secondary border border-border rounded-lg px-3 py-2 text-[14px] text-white focus:border-accent focus:ring-1 focus:ring-accent/50 transition-colors"
                       />
                     </Field>
                   </div>
                 </div>
 
-                <div className="flex flex-col items-end gap-3 mt-4">
-                  {error && <div className="rounded-lg bg-danger/10 px-3 py-2 text-[12px] font-medium text-danger border border-danger/20">{error}</div>}
+                <div className="flex flex-col items-end gap-3 mt-4 pt-4 border-t border-border">
+                  {error && <div className="rounded-md bg-danger/10 px-3 py-2 text-[12px] font-medium text-danger border border-danger/20">{error}</div>}
                   <div className="flex items-center justify-end gap-4">
                     {saved && (
-                      <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#27c93f] animate-fade-in">
-                        <Icon name="check" size={16} />
+                      <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[#27c93f] animate-fade-in">
+                        <Icon name="check" size={14} />
                         {t("common.saved")}
                       </span>
                     )}
-                    <button type="submit" disabled={submitting} className="btn-primary rounded-full px-8 py-2.5 h-[42px] shadow-accent/20">
-                      {submitting ? t("common.saving") : (
-                        <>
-                          <Icon name="check" size={16} />
-                          {t("common.save")}
-                        </>
-                      )}
+                    <button type="submit" disabled={submitting} className="btn-primary rounded-md px-6 py-2 shadow-accent/20">
+                      {submitting ? t("common.saving") : t("common.save")}
                     </button>
                   </div>
                 </div>
@@ -246,25 +252,39 @@ export default function SettingsPage() {
             id: "account",
             label: t("settings.tabAccount"),
             content: (
-              <div className="flex flex-col gap-6 animate-fade-in">
-                <div className="card relative overflow-hidden">
-                  <h2 className="mb-1.5 font-display text-[15px] font-bold text-white tracking-tight">{t("settings.email")}</h2>
-                  <p className="text-[13px] font-medium text-text-secondary">{user.email}</p>
+              <div className="flex flex-col gap-8 animate-fade-in pt-4">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 border-b border-border pb-8">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-white tracking-tight">{t("settings.email")}</h2>
+                  </div>
+                  <div className="sm:w-2/3">
+                    <p className="text-[13px] font-medium text-text-secondary">{user.email}</p>
+                  </div>
                 </div>
-                <div className="card relative overflow-hidden">
-                  <h2 className="mb-1.5 font-display text-[15px] font-bold text-white tracking-tight">{t("settings.password")}</h2>
-                  <p className="mb-4 text-[13px] text-text-secondary/80 font-medium">{t("settings.passwordHint")}</p>
-                  <button type="button" className="btn-secondary rounded-full px-5 py-2 text-[12px] h-9">{t("settings.changePassword")}</button>
+
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 border-b border-border pb-8">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-white tracking-tight">{t("settings.password")}</h2>
+                  </div>
+                  <div className="sm:w-2/3">
+                    <p className="mb-3 text-[13px] text-text-secondary">{t("settings.passwordHint")}</p>
+                    <button type="button" className="btn-secondary rounded-md px-4 py-1.5 text-[12px]">{t("settings.changePassword")}</button>
+                  </div>
                 </div>
-                <div className="card border-danger/40 bg-danger/[0.02] relative overflow-hidden">
-                  <h2 className="mb-1.5 font-display text-[15px] font-bold text-danger tracking-tight">{t("settings.dangerZone")}</h2>
-                  <p className="mb-4 text-[13px] text-text-secondary/80 font-medium">
-                    {t("settings.dangerDesc")}
-                  </p>
-                  <button type="button" className="btn-danger rounded-full px-5 py-2.5 h-10 shadow-[#ff5f56]/20">
-                    <Icon name="trash" size={16} />
-                    {t("settings.deleteAccount")}
-                  </button>
+
+                <div className="flex flex-col sm:flex-row sm:items-start gap-6 pb-4">
+                  <div className="sm:w-1/3">
+                    <h2 className="font-display text-[14px] font-bold text-danger tracking-tight">{t("settings.dangerZone")}</h2>
+                  </div>
+                  <div className="sm:w-2/3">
+                    <p className="mb-3 text-[13px] text-text-secondary">
+                      {t("settings.dangerDesc")}
+                    </p>
+                    <button type="button" className="btn-danger rounded-md px-4 py-2 text-[13px] shadow-[#ff5f56]/20">
+                      <Icon name="trash" size={14} />
+                      {t("settings.deleteAccount")}
+                    </button>
+                  </div>
                 </div>
               </div>
             ),

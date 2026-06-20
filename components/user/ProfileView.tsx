@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Avatar } from "@/components/ui/Avatar";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { ContributionGraph } from "@/components/user/ContributionGraph";
 import { Tabs } from "@/components/ui/Tabs";
 import { TopicCardList } from "@/components/topic/TopicCard";
 import { Markdown, stripMarkdown } from "@/components/ui/Markdown";
@@ -86,10 +87,10 @@ export function ProfileView({ user }: { user: User }) {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="card overflow-hidden p-0">
-        <div className="h-28 bg-gradient-to-br from-accent/30 via-accent/10 to-bg-tertiary" />
-        <div className="px-6 pb-6">
-          <div className="-mt-10 flex flex-wrap items-end gap-4">
+      <div className="card overflow-hidden p-0 bg-transparent border-0">
+        <div className="px-6 pb-6 pt-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-5">
             <Avatar
               user={user}
               size={88}
@@ -139,12 +140,17 @@ export function ProfileView({ user }: { user: User }) {
               {t("profile.joinedAt", { date: formatDate(user.joinedAt, locale) })}
             </span>
           </div>
+          </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <StatBox value={formatNumber(user.reputation)} label={t("profile.statReputation")} icon="star" />
             <StatBox value={formatNumber(user.topicCount)} label={t("profile.statTopics")} icon="chat" />
             <StatBox value={formatNumber(user.followersCount)} label={t("profile.statFollowers")} icon="users" />
             <StatBox value={formatNumber(user.followingCount)} label={t("profile.statFollowing")} icon="user" />
+          </div>
+
+          <div className="mt-8">
+            <ContributionGraph username={user.username} />
           </div>
         </div>
       </div>

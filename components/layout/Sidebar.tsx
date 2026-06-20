@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CATEGORIES } from "@/types";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { TagBadge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/components/providers/I18nProvider";
+import { useCategories } from "@/hooks/useCategories";
 
 export function Sidebar() {
   const { t } = useI18n();
@@ -19,6 +19,7 @@ export function Sidebar() {
     { href: "/rooms", label: t("nav.rooms"), icon: "rooms" },
   ];
 
+  const { categories } = useCategories();
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
@@ -63,17 +64,17 @@ export function Sidebar() {
 
         <Section title={t("nav.categories")}>
           <div className="flex flex-col gap-1">
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <Link
                 key={c.id}
                 href={`/explore?category=${c.id}`}
-                className="group flex items-center gap-3 rounded-md px-3 py-1.5 text-[13px] text-text-secondary transition-colors hover:bg-white/[0.03] hover:text-white"
+                className="group flex items-center gap-3 rounded-md px-3 py-1.5 text-[13px] text-text-secondary transition-colors hover:bg-bg-tertiary/50 hover:text-white"
               >
                 <span
                   className="h-1.5 w-1.5 rounded-full ring-2 ring-transparent group-hover:ring-white/10 transition-all"
                   style={{ backgroundColor: c.color }}
                 />
-                {t(`category.${c.id}`)}
+                {c.label}
               </Link>
             ))}
           </div>
